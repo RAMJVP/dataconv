@@ -1,0 +1,820 @@
+\documentclass[11pt]{article}
+
+% Users of the {thebibliography} environment or BibTeX should use the
+% scicite.sty package, downloadable from *Science* at
+% www.sciencemag.org/about/authors/prep/TeX_help/ .
+% This package should properly format in-text
+% reference calls and reference-list numbers.
+
+%\usepackage{scicite}
+
+% Use times if you have the font installed; otherwise, comment out the
+% following line.
+
+\usepackage{times}
+
+% The following allows for degrees celsius symbol:
+\usepackage{textcomp, gensymb}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{multirow}      
+\usepackage{multicol}  
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{lscape}
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+
+\usepackage[flushleft]{threeparttable}
+\usepackage[authoryear]{natbib}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage[margin=1in]{geometry}
+\usepackage{afterpage}
+
+\newtheorem{theorem}{Theorem}
+\usepackage{multibib}
+%\usepackage[resetlabels,labeled]{multibib}
+
+\newcites{App}{Appendix References}%  \citelatex, \nocitelatex, ...
+
+% The preamble here sets up a lot of new/revised commands and
+% environments.  It's annoying, but please do *not* try to strip these
+% out into a separate .sty file (which could lead to the loss of some
+% information when we convert the file to other formats).  Instead, keep
+% them in the preamble of your main LaTeX source file.
+
+
+% The following parameters seem to provide a reasonable page setup.
+
+%\topmargin 0.0cm
+%\oddsidemargin 0.2cm
+%\textwidth 16cm 
+%\textheight 21cm
+%\footskip 1.0cm
+
+%The next command sets up an environment for the abstract to your paper.
+
+\newenvironment{sciabstract}{%
+\begin{quote} \bf}
+{\end{quote}}
+
+
+% If your reference list includes text notes as well as references,
+% include the following line; otherwise, comment it out.
+
+%\renewcommand\refname{References and Notes}
+
+% The following lines set up an environment for the last note in the
+% reference list, which commonly includes acknowledgments of funding,
+% help, etc.  It's intended for users of BibTeX or the {thebibliography}
+% environment.  Users who are hand-coding their references at the end
+% using a list environment such as {enumerate} can simply add another
+% item at the end, and it will be numbered automatically.
+
+%\newcounter{lastnote}
+%\newenvironment{scilastnote}{%
+%\setcounter{lastnote}{\value{enumiv}}%
+%\addtocounter{lastnote}{+1}%
+%\begin{list}%
+%{\arabic{lastnote}.}
+%{\setlength{\leftmargin}{.22in}}
+%{\setlength{\labelsep}{.5em}}}
+%{\end{list}}
+
+
+% Include your paper's title here
+
+\title{The effect of temperature on energy demand and the role of adaptation\thanks{Acknowledgements: We thank three anonymous referees and the editor for constructive comments and suggestions that improved the article. We also thank numerous seminar participants. Any errors are our own. Thomas di Paola and Krishna Brijmohun provided excellent research assistance. Financial support from the University of Manchester is gratefully acknowledged.}} 
+
+
+% Place the author information here.  Please hand-code the contact
+% information and notecalls; do *not* use \footnote commands.  Let the
+% author contact information appear immediately below the author names
+% as shown.  We would also prefer that you don't change the type-size
+% settings shown here.
+
+\author{Edward Manderson\thanks{University of Manchester, address1, email1} \ and Timothy Considine\thanks{University of Wyoming
+		Surname2: affiliation2, address2,
+		email2.}}
+
+\author
+{Edward Manderson,$^{1\dagger}$ Timothy Considine$^{2}$\\
+\\
+\normalsize{$^{1}$Department of Economics, University of Manchester. Email: edward.manderson@manchester.ac.uk}\\
+\normalsize{$^{2}$Department of Economics, University of Wyoming. Email: tconsidi@uwyo.edu}\\
+\\
+\normalsize{$^\dagger$To whom correspondence should be addressed}
+}
+
+% Include the date command, but leave its argument blank.
+
+%\date{}
+
+
+
+%%%%%%%%%%%%%%%%% END OF PREAMBLE %%%%%%%%%%%%%%%%
+
+
+
+\begin{document} 
+
+% Double-space the manuscript.
+
+\baselineskip24pt
+
+% Make the title.
+
+\maketitle 
+\thispagestyle{empty}
+
+
+% Place your abstract within the special {sciabstract} environment.
+
+\begin{abstract}
+We examine the effect of daily temperature on monthly energy demand for all major fuels (electricity, natural gas and petroleum products) and end-use sectors in the United States using over 3 decades of state-level data. We estimate fixed effects panel models that assume homogeneous temperature coefficients, and panel models that account for adaptation by allowing for both spatial and temporal variation in the temperature sensitivity of fuel demand. For each fuel and sector, we find there is substantial heterogeneity across states in the estimated relationships. Using our estimates to predict the effects that climate change has already had during 2010-2019, we find that adaptation has led to aggregate annual savings in energy consumption and expenditure for each sector, with the residential sector saving nearly 1 billion dollars annually with adaptation versus without. However, we also find notable heterogeneity across regions in how the predicted impacts are modified by adaptation. %We also find that due to adaptation there is a negative rather than positive feedback effect of warming temperatures on carbon dioxide emissions. 
+    
+\end{abstract}
+
+
+Keywords: Temperature, Energy, Climate Change, Adaptation  
+
+JEL Classifications: Q41, Q54.
+
+\bigskip\newpage
+
+\pagenumbering{arabic}
+
+
+% In setting up this template for *Science* papers, we've used both
+% the \section* command and the \paragraph* command for topical
+% divisions.  Which you use will of course depend on the type of paper
+% you're writing.  Review Articles tend to have displayed headings, for
+% which \section* is more appropriate; Research Articles, when they have
+% formal topical divisions at all, tend to signal them with bold text
+% that runs into the paragraph, for which \paragraph* is the right
+% choice.  Either way, use the asterisk (*) modifier, as shown, to
+% suppress numbering.
+
+\section{Introduction}
+
+An important channel through which economic activity responds to climate change is energy consumption. Changes in weather patterns over time, in terms of higher average temperatures including milder winters and hotter summers, as well as the greater frequency and intensity of extreme temperature events, may lead to substantial adjustments in fuel use by households and firms. Empirical evidence on these adjustments can shed light on self-protection efforts to mitigate the negative effects of climate change.\footnote{ For example, energy use for air conditioning that may mitigate the negative effects that high temperature events have been found to have on various outcomes, including labour productivity (e.g. \cite{ZHANG20181}), learning and cognitive performance (e.g. \cite{graff2018temperature}, \cite{park2020}), human health (e.g. \cite{DGJ1}, \cite{white2017dynamic}), and mortality (e.g. \cite{cohen2019mortality}, \cite{heutel2021adaptation}, \cite{Carleton22}).} In addition, it is not clear \textit{a priori} whether climate change-driven increases in energy use for cooling more than offset decreases for heating. The direction of this relationship has implications for net energy expenditures, and thus the economic welfare effects of climate change and the social cost of carbon. The net impacts may vary across fuels, which has implications for anthropogenic carbon dioxide emissions, as well as across sectors. However, the existing empirical evidence is not conclusive on these impacts.
+
+The effects that climate change has on energy demand will depend on adaptation efforts by households and businesses. Adaptation may involve behavioral changes, for example regarding preferred thermostat settings or air conditioning use, and also technology adoption, such as installing more efficient furnaces or air conditioning units, ceiling fans or smart thermostats. The existence of adaptation could substantially modify the sensitivity of energy consumption to temperature, potentially generating heterogeneous responses both across regions and over time. 
+
+In this paper, we estimate how fuel consumption responds to temperature and explore how the relationship is modified by adaptation. We use detailed data on sectoral energy use by fuel type with an unprecedented spatial and temporal resolution for a large geographic area, to explore how random variation in daily temperature patterns affects end-use fuel demand. Specifically, we create a monthly state-level panel dataset for the entire contiguous United States spanning a 30 year period (1990-2019) or longer, and estimate separate effects for all major fuels: electricity, natural gas, and various petroleum products. For electricity and natural gas demand, we further disaggregate our analysis by sector (residential, commercial and industrial). We estimate a baseline model that assumes homogeneous temperature effects (i.e., no adaptation), and an adaptation model that allows for heterogeneous temperature effects across states and over time. %We account for non-linear responses to temperature by estimating highly flexible semi-parametric regressions that capture variation across the full distribution of temperature patterns without relying on strong functional form assumptions. 
+
+Using temporally granular (monthly rather than annual) energy use data allows us to exploit the substantial within-year adjustments in fuel consumption to estimate with greater precision the temperature-fuel demand relationship and how it varies across states and over time. Our use of monthly data also means we can include state-by-year effects. Thus, we control for unobserved changes over time that are specific to each state and that may otherwise be a source of bias if they are correlated with temperature changes.\footnote{ Other papers in the literature have also controlled for year effects at the state level, but to the best of our knowledge only when using data for a single state or region e.g. \cite{auffhammer2022climate}.}   
+
+From our baseline model, we find monthly electricity consumption responds to daily temperature in a non-linear manner for the residential and commercial sectors, with elevated consumption for days at the two extremes of the temperature distribution. A similar pattern is observed for the industrial sector, although the magnitude of the effect is much smaller. For natural gas, we find monthly consumption declines monotonically in response to daily temperatures, particularly in the residential and commercial sectors. There is also a statistically significant response in the industrial sector but the effect is again relatively small in magnitude. For petroleum products, propane use declines significantly in temperature, with a similar magnitude to that observed for natural gas in the residential and commercial sectors. Distillate fuel consumption increases in cold weather, while motor gasoline consumption increases in both extreme hot and cold weather. However, there is no evidence of temperature sensitivity in the case of jet fuel. Our baseline findings are robust to a wide variety of specification tests that include allowing for a delayed effect of weather on energy consumption, checks for potentially influential observations, as well as using different data periods, temperature datasets, control variables and fixed effects. 
+
+We then explore the importance of adaptation for the effects of temperature using our heterogeneous slopes model, and identify substantial heterogeneity in the response of fuel consumption across states. In contrast, there is relatively little heterogeneity in the estimated slopes over time. We provide suggestive evidence on the mechanisms driving the cross-state heterogeneity. For the residential and commercial sectors, we find lower sensitivity of electricity demand to hot days in states with the warmest and coolest summer climates relative to middle climate states, i.e., there is an inverted U-shaped relationship between the slope coefficients for hot daily temperatures and long-run exposure to hot temperatures. %the extent states are exposed to hot long-run climates. %long-run average state temperature during summer months. 
+This pattern reflects that air conditioning (which increases electricity use for cooling) is pervasive in all but the coolest climate states, while various other factors (including the efficiency of air conditioning systems, building characteristics and thermostat preferences) reduce the need for electricity consumption during hot days in the warmest climate states. For the residential and commercial sectors, we also find that states with colder winter climates exhibit a smaller (percentage) increase in electricity demand during cold days. Similarly, for the residential sector, there is a smaller increase in natural gas demand during cold days in states with colder winter climates. %The importance of regional variation in the relationship demonstrates that external validity can be hard to establish for studies focused on a relatively small geographic area. However, there is little evidence of adaptation to regional climate in the case of natural gas or petroleum products. %The findings when pooling across all US states are often driven by a strong response in a few climate regions, with a muted effect in other regions.
+
+We use our estimated relationships to investigate the within-sample adjustments in energy consumption, energy expenditures and carbon dioxide emissions associated with climate change that has already taken place. Because we provide a near-complete picture of end-use fuel demand in the US, we are able to assess the full impacts across the US economy. We predict the impacts due to differences between daily temperature patterns observed during the 2010s (2010-2019) and long-run average daily temperature patterns during 1951-1980. We find the baseline model predicts that warming temperatures have increased energy (i.e., electricity and natural gas) expenditure by about 600 million dollars annually in the residential sector, because increases in electricity expenditure more than offset decreases in natural gas expenditure. However, with adaptation we find that energy expenditure declines by about 350 million dollars annually because the increased electricity expenditure is more than offset by reductions in natural gas expenditure. Thus, our predictions suggest adaptation has saved about 1 billion dollars annually in the residential sector from the impacts of climate change, in comparison to without adaptation. For carbon dioxide emissions, our predictions imply an overall increase (across all fuels and sectors) in annual emissions of 2.1 million metric tons without adaptation, but a decrease of 5.4 million metric tons with adaptation.\footnote{These emission impacts are lower-bound estimates, but our predictions are qualitatively the same using upper-bound estimates.} Thus, deviations from long-run daily temperature distributions during the 2010s (relative to 1951-1980) have already changed energy expenditure and emission patterns in the US, but the nature of the impacts depends critically on adaptation.    
+
+We also find the benefits of adaptation are not evenly distributed. Breaking down our predicted impacts by climate tercile, we find that adaptation has increased (decreased) the effects of climate change on residential electricity consumption and expenditure in the coolest (warmest) third of states. Thus, while households in the coolest third of states lose out, those in the warmest third of states benefit from using less electricity to mitigate the effects of warmer temperatures than they would without adaptation. 
+
+This study makes three main contributions to the existing literature that uses econometric methods to estimate the effects of temperature on energy demand. First, we provide disaggregated evidence with large spatial coverage by fuel type for all major fuels and end-use sectors. Specifically, we consider the entire contiguous United States, using both temporally and spatially disaggregated (i.e., monthly state-level) panel data. Our analysis builds on \cite{Green2011}, who investigate the effect of temperature on total residential energy consumption in the US during 1968-2002 using annual state-level data. They do not consider other sectors or break down their analysis by fuel type. 
+Many other studies provide empirical evidence for the residential sector and/or electricity demand (e.g. \cite{Davis5962}, \cite{Auffhammer1886}, \cite{auffhammer2022climate}). Other fuels and sectors have received less attention. Studies with global coverage including \cite{DeCian2019} and \cite{Rode2021} consider all fuels and sectors but use aggregated (i.e., annual country-level) data and do not provide a full breakdown by fuel.
+%However, there is very little disaggregated evidence by fuel type and by sector with large spatial coverage. Studies including \cite{DeCian2019} and \cite{Rode2021}  consider all fuels and sectors but use aggregated (annual country-level) data
+%Very few studies provide empirical evidence by fuel type for all major fuels, .  . %Very few studies provide empirical evidence by fuel type for all major energy products, and so the overall effect that temperature shocks have on carbon dioxide emissions across the US economy is not well known.
+
+Second, we use a novel methodology for studying adaptation behaviour in the energy demand-temperature relationship. We argue that adaptation may generate both spatial and temporal heterogeneity in the sensitivity of energy consumption to temperature. Thus, drawing on recent econometric developments proposed by \cite{keane2020climate} in the agriculture and climate change literature, we allow for unit and time heterogeneity in slopes simultaneously, i.e., treatment effects that are heterogeneous for each state in each year, while also including the same set of fixed effects as in our homogeneous response baseline model. We also provide a detailed analysis of the mechanisms driving the adaptation. In doing so, we complement a small number of recent studies that consider adaptation behaviour in energy demand responses using panel data methods. For example, \cite{Davis5962} analyse households in Mexico; \cite{Rode2021} use national-level data and analyse impacts aggregated across sectors; and \cite{auffhammer2022climate} consider adaptation by households in California. %Mention our data are well suited for this due to the spatial and temporal coverage? For example: Our data have very large temporal and spatial coverage and are therefore ideal for exploring adaptation both over time and space.
+
+% characterise graphically, across the entire US, statistically significant differences in the energy consumption-temperature relationship by local climate. This approach allows us to capture adaptation by firms and households to the impacts of temperature across regions. 
+
+% Thus, we remove from our estimates the effects of variables that vary at the state-by-year dimension, which removes a possible source of omitted variable bias. 
+% We use monthly data rather than the annual data that is often utilised in studies using panel data estimation techniques (e.g. \cite{Eskeland2010}, \cite{Green2011}, \cite{DeCian2019}). This allows us to capture the substantial within-year adjustments in energy consumption in response to weather fluctuations. Thus, we can estimate the relationship more precisely, which is especially important when exploring climate-region specific estimates. 
+%It also allows us to consider the robustness of our results to a richer set of state-by-year fixed effects. These control for state-specific trends in energy consumption over time and capture any annual changes in unobserved technological adoption or preferences that are specific to an individual state.   
+%Our second contribution to the literature is 
+%investigate the implied impacts for carbon dioxide emissions of the adjustments in fuel demand. This is important because...We estimate a lower-bound impact (in absolute terms). etc 
+
+Our third main contribution is that we quantify the energy consumption impacts in the US that are attributable to climate change that has already occurred. Specifically, we analyse the within-sample impacts of changes in temperature during 2010-2019 from long-run average temperature patterns and assess how adaptation has modified these estimated impacts. Studies in the existing literature have focused on projecting future impacts under potential future climate scenarios (e.g. \cite{Green2011}, \cite{Rode2021}, \cite{auffhammer2022climate}). While the most substantial impacts from global warming are expected to be realised over future decades, important changes in weather patterns have already taken place. Many of the hottest years on record have occurred recently, as the planet's trend of long-term warming continues. At the time of writing, 2016 is tied with 2020 as the warmest year on record, 1.84\degree F warmer than the baseline 1951-1980 mean \citep{NASA2021}. To the best of our knowledge, the impacts of observed warming in recent years on energy consumption have not previously been investigated.\footnote{ We further discuss the advantages for this paper of estimating the within-sample impacts of climate change, rather than future projections, in the appendix (see section A.2).}
+
+This paper proceeds as follows. In section \ref{baseline} we set out the econometric methodology. Section \ref{data} describes our data and section \ref{results} reports the results of the energy demand regressions. Section \ref{simulation} predicts the impacts of climate change during 2010-2019 on energy consumption, energy expenditures and carbon dioxide emissions. Finally, section \ref{conclusion} concludes.\footnote{ Further background information on the nature of the energy demand-temperature relationship and why it might be expected to vary across sectors, fuels and climate regions is provided in the appendix (see section A.1). We also summarise the most relevant results from the growing literature on this relationship in the appendix, and demonstrate the mixed findings on the net impacts of temperature shocks on energy demand (see section A.2).} 
+
+\section{Empirical Methodology \label{baseline}}
+
+In this section, we present the empirical strategy we use to estimate the response of fuel consumption to adjustments in temperature distributions. The fuels we consider include electricity, natural gas and four petroleum products (propane, distillate fuel, motor gasoline and kerosene-type jet fuel). Electricity and natural gas are disaggregated by sector (residential, commercial and industrial). We allow all parameters to vary across each fuel and sector by estimating separate regressions in each case. We use plausibly random variation in state-by-month-by-year temperature patterns for identification.
+
+\subsection{Baseline Model}
+For our baseline regressions, we assume temperature bin coefficients are homogeneous across states and time. Specifically, we estimate variants of the following equation:  
+\begin{equation}
+\ln(C)_{smt} = \sum_{j=1}^{8} \beta_{j} Temp_{smt}^{j} + \beta_{9} Prec_{smt} + \beta_{10} Humid_{smt} + \alpha_{sm} + \gamma_{mt} + \delta_{st} + \epsilon_{smt} \label{eq:base}%
+\end{equation} 
+where $C_{smt}$ is monthly consumption of the energy product under consideration (electricity, natural gas or a petroleum product) in state $s$, month $m$ and year $t$. We control for precipitation ($Prec_{smt}$) and relative humidity ($Humid_{smt}$). $\epsilon_{smt}$ is an error term. Errors may be correlated over time within states, and so we cluster standard errors by state ($s$) to account for serial correlation.\footnote{ In our robustness checks, we show that our conclusions are unchanged by two-way clustering the errors both by state and by time period (i.e., allowing for spatially correlated errors across states). Alternatively, we might allow errors to be correlated across each sector and fuel equation by clustering at the state level in a pooled regression, i.e., a model that pools all our data together, and introduces interaction terms between the temperature bin variables and dummies for each fuel and sector (as well as defining each set of fixed effects by fuel and sector). However, we find this pooled model results in diminutive efficiency gains with identical standard errors to five or six decimal places. Hence, we prefer the simplicity of individual regressions for each fuel and sector.}%seemingly unrelated regression models that account for this cross-equation error correlation will produce identical results (coefficients and standard errors) to separate regressions because we have the same set of regressors for each equation. 
+
+Our variables of interest in equation (\ref{eq:base}) are the measures of state temperature $Temp_{smt}^{j}$. We model the distribution of daily mean temperatures within a month using nine temperature bins to capture the full distribution of monthly fluctuations in weather.\footnote{As explained below, one temperature bin is omitted, hence the summation in equation (\ref{eq:base}) is only over eight bins.} The bins $j$ are defined as less than 15\degree F, greater than 85\degree F, and the seven 10\degree F wide bins in-between. %\footnote{ We experimented with including additional bins for even more extreme temperature events, i.e., bins for temperatures less than 5\degree F and greater than 85\degree F. However, we found the estimated coefficients on these additional two bins are close to the adjacent temperature bins, so this has little effect on our main findings. In addition, because there are very few observations at these extreme temperatures, the bins often cannot be identified in a statistically meaningful way when exploring heterogeneity by local climate. These results are available on request.} 
+Thus, the variables $Temp_{smt}^{j}$ denote the number of days in state $s$ and month $m$ and year $t$ where the daily mean temperature is in bin $j$. This approach preserves the daily variation in temperatures which is important because of the potential for non-linearities in the daily temperature-energy consumption relationships \citep{Green2011}.
+
+The regressions include a rich set of fixed effects to mitigate possible omitted variable bias. First, because we only want to identify the effect of changes in temperature over time, we include state-by-month (e.g. California in February) fixed effects ($\alpha_{sm}$). These effects capture seasonal determinants of energy use specific to each state and ensure identification comes from random deviations from a state's own long-run weather pattern in a particular month over time. Second, we include year-by-month (e.g. March 2006) fixed effects ($\gamma_{mt}$) that capture national deviations in energy use in each time period of the sample, for example due to adjustments in the macroeconomic environment that are common across all states. Third, we include state-by-year (e.g. California in 2012) fixed effects ($\delta_{st}$). These control for time-varying unobserved variables that cause annual adjustments in the level of energy consumption that are specific to each state, and may be correlated with changes in the average temperature over time. For example, state-level energy policies, technology adoption, preferences, the scale of economic activity, and the composition of households or firms. The state-by-year fixed effects can only be included because we have such a large dataset with considerable variation in our data.
+
+We control for precipitation and relative humidity because they are likely correlated with temperature. Thus, including them as controls ensures that our estimated effects of temperature on energy demand do not also partly capture the effects of these other weather variables. Nonetheless, it is not obvious how precipitation may affect energy consumption, and as such we may find its effect to be insignificant or may not be robust. Relative humidity may however play a role because it feels warmer in humid conditions, which may potentially increase cooling demand.\footnote{ We do not observe weather variables such as wind speed or solar radiation. However, we are not aware of evidence that these variables have an important effect on energy consumption.} For our baseline regressions, we focus on parsimonious specifications where precipitation and relative humidity enter only as single (continuous) control variables. However, we explore the robustness of our results to including precipitation and relative humidity bins, to allow for non-linear effects.  
+%To control for the effect of precipitation, the variables $StatePrecip_{smt}^{k}$ represent five bins $k$ for total monthly rainfall in state $s$ and month $m$ and year $t$. These bins $k$ are for precipitation less than 30mm, more than 120mm and the three 30mm bins in-between.  
+
+Since we include state-by-month fixed effects, year-by-month fixed effects, and state-by-year fixed effects, identification of the parameters $\beta_{j}$ comes from state-specific deviations in temperature about the state's monthly average, conditional on shocks common to all states and state-specific annual adjustments. The identifying assumption necessary for our analysis to produce unbiased estimates is that this variation is orthogonal to unobserved determinants of energy use, which seems reasonable given the unpredictability of temperature fluctuations. Our identification strategy is very different to \cite{Green2011}: we exploit the within-year adjustments in energy consumption, while the annual state-level variation used by \cite{Green2011} is captured by our state-by-year fixed effects. Our fixed effects will capture variation in energy demand caused by gradual rises in average temperatures over time (which may be correlated with omitted variables). Therefore, we interpret our estimates as measuring the effects of plausibly random \textit{shocks} to temperature patterns. However, we also explore the robustness of our findings to including fewer fixed effects.\footnote{ Regression (\ref{eq:base}) includes two-way (i.e., unit and time period) fixed effects, and is therefore related to the recent literature that discusses two-way fixed effects estimators (e.g. \cite{de2020two}, \cite{callaway2021difference}, \cite{goodman2021difference}). An important insight from this literature is that two-way fixed effects regressions estimate weighted average treatment effects, where negative weights can arise when average treatment effects are heterogeneous across units or over time. Average treatment effects should therefore be interpreted with caution. However, this literature focuses on regression set ups that are different to our own, and so it is unclear if these results would apply to our analysis. Moreover, our adaptation model discussed below involves estimating heterogeneous treatment effects.}
+
+Temperature change over time may drive investment in adaptation technologies. These technologies may themselves have a direct effect on energy consumption. However, our estimates will not capture this channel because the adoption of new technologies happens only slowly over time and will therefore plausibly be captured by the dynamic fixed effects in the model (i.e. the state-by-year fixed effects). Since long-run impacts of temperature changes via adjustments in technology are captured by the fixed effects, our temperature bin coefficients will only measure the short-run effects of temperature shocks on energy consumption. However, we expect that new technologies (and other forms of adaptation) will have important effects on the sensitivity of energy consumption to temperature shocks. This motivates the estimation of a model that allows the temperature bin coefficients to vary across states and over time, which we consider next.  
+
+\subsection{Adaptation Model}
+
+After our baseline regressions, we model adaptation in the energy consumption-temperature relationship.\footnote{ Here we define adaptation broadly to include all variables that modify the sensitivity of energy consumption to weather.} We do this by using a similar method to the one recently developed by \cite{keane2020climate} in the literature on climate change and agriculture. Specifically, we estimate a model that captures slope heterogeneity \textit{both} across US states \textit{and} over time simultaneously, i.e., it allows for state and year fixed effects in slopes (as well as intercepts). This model takes the following form:
+\begin{equation}
+\ln(C)_{smt} = \sum_{j=1}^{8} \beta_{j,st} Temp_{smt}^{j} + \beta_{9, st} Prec_{smt} + \beta_{10,st} Humid_{smt} + \alpha_{sm} + \gamma_{mt} + \delta_{st} + \epsilon_{smt} \label{eq:hetero}%
+\end{equation}
+where we now estimate heterogeneous $\beta$ coefficients on each regressor specific to each $s$ and $t$. We again cluster standard errors at the state level. This model cannot be identified without imposing more structure on the slope coefficients. As proposed by \cite{keane2020climate}, we impose the following structure of additive heterogeneity:
+\begin{equation}
+\beta_{kst} = \beta_{k} + \lambda_{ks} + \theta_{kt}, k=1,...,10  \label{eq:hetero2}%
+\end{equation}
+where the terms $\lambda_{ks}$ and $\theta_{kt}$ capture adaptation across states and across years, respectively. The implication of this structure is that each state's \textit{relative} sensitivity to weather is fixed over time, and year effects shift all states' weather sensitivities up or down to the same degree. In practice, we estimate this model by interacting all regressors with dummy variables for each $s$ and for each $t$. These interaction terms capture $\lambda_{ks}$ and $\theta_{kt}$. The fact we have three decades of monthly data across 48 states allows us to adopt this highly flexible specification, and also obtain precise enough empirical estimates to draw meaningful conclusions.\footnote{ \cite{keane2020climate} refer to this method as the `brute force' estimation approach. We have sufficient data to estimate the model in this way despite the large number of fixed effects. For example, in the case of electricity demand, we have 30 years, 12 months and 48 states. Thus, we have 17,280 observations, 2,376 fixed effects, and 780 explanatory variables (i.e. 10 weather variables each interacted with year dummies and state dummies). For panels with a large number of panel units and years, this method becomes infeasible because the size of the regressor matrix grows too large. However, \cite{keane2020climate} propose an algorithm for constructing consistent (and numerically equivalent) estimates in this case.} To shed light on the mechanisms driving adaptation, we then explore how state characteristics are correlated with the set of estimated $\beta$ coefficients.
+
+%\textit{Explain in more detail the advantages/properties of this model and how it captures adaptation?}
+
+%in the  estimate the regressions separately for three climate terciles. Here, we define the coolest third of states based on average heating degree days over the sample period, and the warmest third of states based on average cooling degree days. The remaining third of states belong to the middle climate tercile. This approach allows us to explore how the relationships vary by regional climate and consider whether there is evidence of adaptation behaviour.   
+
+%As noted above, the non-linear relationship between temperature and energy may vary considerably by climate region. Variation in adaptation behaviour may mean that cooling effects dominate in hot regions, while heating effects dominate in cold places. Therefore, as well as regressions that use data pooled across all states, we estimate the models separately by each US climate region.
+
+\section{Data \label{data}}
+
+We collected the most detailed available data on monthly energy use for all major fuels across the US, including some data we have newly digitised. We complement the energy consumption data with weather variables which we calculate from thousands of individual weather stations. In this section we briefly outline our data sources. 
+
+\paragraph*{Weather Data} Our main weather dataset is the Global Historical Climatology Network (GHCN)- Daily weather station dataset provided by the National Oceanic and Atmospheric Administration’s (NOAA) National Climatic Data Center (NCDC) \citep{Menne2012}. The variables we use are the daily maximum and minimum temperatures and the total daily precipitation. For our baseline results, we follow the literature \citep{Green2011} and calculate the daily mean temperature which is the simple average of maximum and minimum. We then aggregate the daily station-level temperature and precipitation data to the daily county level, and then aggregate from the county level to the state level by taking the population weighted average across all counties in the state. Data on relative humidity are not provided in the GHCN weather station data, so we obtain these data from the National Centers for Environmental Prediction (NCEP) North American Regional Reanalysis (NARR) dataset \citep{NARRa} provided by NOAA. This is a high resolution gridded climate dataset available from 1979 onwards. Following a similar procedure to before, we use the relative humidity data at the daily resolution and aggregate to the state level. We also explore the robustness of our results to using temperature data from two gridded datasets: NCEP NARR and PRISM \citep{PRISMa}.\footnote{We use the GHCN station data for our main results rather than the gridded datasets because it is available at the daily resolution over a long time horizon, and so it can be used to calculate the baseline average daily temperature bins observed during 1951-1980 which we need for our simulation analysis.} More detailed information about how we compile the weather data and discussion of the alternative temperature data sources are provided in the appendix (section A.3). We also provide summary statistics in the appendix (section A.4).%and discussion of these two alternative sources
+
+\paragraph*{Energy Data} Our source of end-use energy data disaggregated by fuel type is the US Energy Information Administration (EIA). These data are all observed by month and by US state.\footnote{ Excluding Alaska, Hawaii and the District of Columbia} To the best of our knowledge, these are the most spatially disaggregated monthly energy consumption data that span the entire US. Electricity sales (consumption in MWh) and price data are available for January 1990 to December 2019 (provided by Form EIA-861M, formerly EIA-826). Natural gas consumption (volumes of cubic feet delivered) and price data are available for January 1989 to December 2019 (from various Forms). For the petroleum products, sales (in gallons per day) of propane, number 2 distillate, gasoline and jet fuel are available for January 1983 to December 2019 (provided by Forms EIA-782C). We convert these data to gallons per month. The EIA reports electricity and natural gas data disaggregated by residential, commercial and industrial sectors. Natural gas data for the industrial sector are only available digitally from the EIA website back to 2001. However, we extend these data back to 1989 by manually digitising data from Natural Gas Monthly PDF files, increasing our sample size by about 7,000 observations.
+
+Our use of state-level monthly panel data to investigate impacts for all major fuels and sectors across the US -- over a 30 year period for electricity, 31 year period for natural gas, and 37 years for petroleum products -- means the estimates are more general than those derived from small geographic areas or a short time span. Thus, our approach reduces concerns about external validity. Furthermore, because these data relate to a large geographic area and time period, they are well suited for analysing spatial and temporal adaptation. Summary statistics for the energy data are provided in the appendix (section A.4).
+	
+%For the control variables, annual personal disposable income, population, real commercial production and real industrial production data are from the Bureau of Economic Analysis regional economic accounts. Energy prices and personal disposable income are deflated using a region-specific consumer price index (all items less energy) from the Bureau of Labor Statistics.    
+
+\section{Results \label{results}}
+
+This section presents our estimation results. First, we provide our baseline results with homogeneous temperature effects on fuel demand. Second, we investigate adaptation by allowing for heterogeneous temperature effects across space and over time. %income levels, technologies and energy prices. 
+%Finally, we use the estimated relationships to predict the within-sample impacts of climate change-driven changes in weather patterns on net energy expenditures.
+
+\subsection{Baseline Findings}
+
+Figure \ref{fig:electricity} presents our baseline results from the estimation of equation (\ref{eq:base}) on the relationship between exposure to temperature and the log of monthly electricity demand. We estimate separate regressions for the residential, commercial and industrial sectors such that each sector has a corresponding subfigure. We plot the estimated coefficients $\hat{\beta}_{j}$ for each temperature bin, multiplied by 100 to give the (approximate) percentage change in electricity demand, where the temperature variable $Temp_{smt}$ associated with 55-65\degree F bin is the omitted category. Therefore, each estimated coefficient measures the estimated percentage change in monthly electricity use from an additional day in bin $j$, relative to a day in the 55-65\degree F range.\footnote{ We use 55-65\degree F as the omitted (reference) bin because there is little need for heating or cooling for temperatures in this range. In addition, cooling degree days in the US are usually calculated using a 65\degree baseline.} The figure also plots the 95 percent confidence interval around each estimated coefficient. Since our focus is on the effects of temperature, we do not report the estimated parameters associated with the weather controls, i.e. precipitation and relative humidity.\footnote{ Precipitation and relative humidity are always found to be insignificant for electricity demand, and do not have a robust effect for natural gas demand. On the other hand, both precipitation and relative humidity have significant and negative effects on distillate, motor gasoline and jet fuel demand. It may be of interest for future research to explore the mechanisms behind these findings.}
+
+	\begin{figure}
+	\centering
+	
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{Residential}
+		\label{fig:residential1}
+		\includegraphics[width=\linewidth]{aResidentialnew_FE.pdf}
+	\end{subfigure} \hspace{0em}%
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{Commercial}
+		\label{fig:commercial1}
+		\includegraphics[width=\linewidth]{bCommercialnewFE.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+	\centering
+	\caption{Industrial}
+	\label{fig:industrial1}
+	\includegraphics[width=\linewidth]{cIndustrialnewFE.pdf}
+	\end{subfigure}
+	\caption{Estimated Relationship Between Monthly Electricity Consumption and Average Daily Temperature for: (a) Residential Sector, (b) Commercial Sector, and (c) Industrial Sector. \\ {\small Notes: Each figure plots the coefficients on the temperature bins obtained from the estimation of equation (\ref{eq:base}), where the dependent variable is log electricity consumption (MWh) in state $s$ and month $m$ and year $t$. Effects are relative to a day with an average temperature of 55-65\degree F. The shaded areas indicate 95 percent confidence intervals. Standard errors are clustered at the state level. The sample size for each sector is 17,280 observations. The R-squared (defined as 1 minus the ratio of residual sum of squares to total sum of squares) is 0.99 for each sector.}}
+	\label{fig:electricity}
+\end{figure}
+
+From Figure \ref{fig:electricity} we find that log electricity demand for the residential sector is non-linear in temperature. The percentage change in electricity consumption is highest for the coldest and hottest temperatures, and lowest in the omitted temperature category, resulting in a U-shaped relationship. This is consistent with findings elsewhere in the literature for the residential sector (e.g. \cite{Auffhammer2011}, \cite{Green2011}). All the temperature bin coefficients are found to be statistically significant and positive. %Since we chose the base category of 55-65\degree F to be a temperature range where there is little need for heating and cooling, it is unsurprising that all the temperature bin coefficients indicate there is higher electricity demand relative to the base category. 
+For example, the coefficient associated with the 35-45\degree F bin is 0.8, so exchanging a single day in this range for one in the 55-65\degree F range would lead to 0.8 percent lower monthly electricity consumption. The estimated percentage change is 1.7 for the coldest temperature bin ($<$ 15\degree F), and 1.9 for the hottest bin ($>$ 85\degree F). We cannot reject the null hypothesis that these coefficients are equal. The 95\% confidence intervals range from 1.6 to 1.9 percent for the coldest bin and from 1.7 to 2.2 percent for the hottest bin. Thus, we find very similar effects of exposure to extreme high and low temperatures on electricity consumption. These findings are consistent with electricity being used for heating (e.g. via electric heaters) and cooling (e.g. via air conditioning) to a similar extent at the temperature extremes.  
+%The lowest estimated coefficient is associated with the 55-65\degree F temperature bin. Electricity consumption in this temperature range is 0.4 percent below the baseline category, a statistically significant difference at the 1 percent level. In contrast, the coefficients on the two highest bins are positive and significant at the 1 percent level. The coefficient on the highest temperature bin ($>$ 85\degree F) is 1.5, and we cannot reject the null hypothesis that it is equal to the coefficient on the lowest temperature bin. Thus, we find very similar effects of exposure to extreme high and low temperatures on electricity consumption. These findings are consistent with electricity being used for heating (e.g. via electric heaters) and cooling (e.g. via air conditioning) to a similar extent.
+
+Turning to electricity demand in the commercial sector, we find similar results to the residential sector (see subfigure (b) in Figure \ref{fig:electricity}). There is again a U-shaped relationship such that the highest electricity consumption occurs at the hottest and coldest temperatures. However, the magnitude of the coefficients is smaller than in the residential sector. Another difference is that there is now a stronger positive response to the hottest temperatures than the coldest temperatures: the coefficient on the $>$ 85\degree F bin is equal to 1.0 percent (with a 95\% confidence interval of 0.9 to 1.1 percent), while the coefficient on the $<$ 15\degree F bin is equal to 0.6 percent (with a 95\% confidence interval of 0.5 to 0.7 percent). Finally, there is also evidence of a U-shaped relationship in the industrial sector. However, the magnitude of the extreme temperature coefficients are much smaller than either the residential or commercial sector. This likely reflects that the industrial sector uses a large proportion of its electricity for industrial processes (e.g. operating motors and machinery) rather than in response to temperature fluctuations. Nonetheless, the coefficients on the two lowest temperature bins, and the three highest temperature bins, are all statistically significant at the 5 percent level or lower. Thus, we still identify significant temperature sensitivity for industrial electricity consumption.
+
+Figure \ref{fig:naturalgas} presents the results for natural gas demand separately for the residential, commercial and industrial sectors. Here very different results emerge than those found for electricity demand. In the residential sector, the percentage increase in natural gas use declines monotonically in daily temperature. This finding supports our expectation that higher temperatures should reduce natural gas use in the residential sector because natural gas is primarily used for heating. The relationship flattens out at the highest temperature bins, with very similar estimated coefficients for the 65-75\degree F bin, the 75-85\degree F bin, and the $>$ 85\degree F bin. This is consistent with there being little need for heating from moderately high temperatures upwards. Furthermore, the magnitude of the response to cold days is relatively large. Exchanging a single day in the $<$ 15\degree F bin for one in the base category (55-65\degree F) would lead to a decline in monthly natural gas use of 5.1 percent. In contrast, exchanging a single day in the $>$ 85\degree F bin for one in the base category would lead to an increase in monthly natural gas use of about 1 percent. The 95\% confidence intervals around these coefficients are quite narrow. For the commercial sector, the results are nearly identical. We again find a downward sloping relationship between temperature and natural gas demand, which levels out at moderately high temperatures. The magnitude of the relationship is similar to that observed in the residential sector. Finally, there is also evidence of increased natural gas use in the industrial sector at lower temperatures, although the magnitude of the effect is fairly small. For the two lowest temperature bins, the coefficients suggest that natural gas use increases by only 0.9 percent (relative to the base category). However, this effect remains statistically significant at the 1 percent level. 
+   
+\begin{figure}
+	\centering
+	
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{Residential}
+		\label{fig:residential2}
+		\includegraphics[width=\linewidth]{aResidentialNGnewFE.pdf}
+	\end{subfigure} \hspace{0em}%
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{Commercial}
+		\label{fig:commercial2}
+		\includegraphics[width=\linewidth]{bCommercialNGnewFE.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{Industrial}
+		\label{fig:industrial2}
+		\includegraphics[width=\linewidth]{Figure2_cIndustrial.pdf}
+	\end{subfigure}
+	\caption{Estimated Relationship Between Monthly Natural Gas Consumption and Average Daily Temperature for: (a) Residential Sector, (b) Commercial Sector, and (c) Industrial Sector. \\ {\small Notes: Each figure plots the coefficients on the temperature bins obtained from the estimation of equation (\ref{eq:base}), where the dependent variable is log natural gas sales (MMcf) in state $s$ and month $m$ and year $t$. Effects are relative to a day with an average temperature of 55-65\degree F. The shaded areas indicate 95 percent confidence intervals. Standard errors are clustered at the state level. The sample size is about 17,800 observations for each sector. The R-squared (defined as 1 minus the ratio of residual sum of squares to total sum of squares) is 0.99 for each sector.}} 
+	\label{fig:naturalgas}
+\end{figure}
+
+Overall, these findings reveal there is substantial heterogeneity in the response to temperature fluctuations for natural gas demand compared to electricity demand. This underscores the importance of estimating flexible specifications that allow the parameters to vary across fuels. Studies that estimate the effect of temperature on aggregate energy consumption (e.g. \cite{Green2011} for the residential sector) cannot capture the differential responses of individual fuels.
+
+Figure \ref{fig:petroleumproducts} presents the results for the log of monthly demand for various petroleum products: consumer-grade propane, no. 2 distillate, motor gasoline and kerosene. Similar to natural gas use in the residential and commercial sectors, we find that propane demand declines monotonically in daily temperature. The size of the coefficients is also relatively large for cold temperature bins, with propane use increasing by 3.6 percent for the lowest temperature bin ($<$ 15\degree F) relative to the omitted bin (55-65\degree F). Here the 95\% confidence interval is 3.2 to 4.0 percent. The negative effect in warm temperature bins is small, with a decrease of less than 1 percent in the hottest temperature bin. The EIA reports that the residential sector is the largest consumer of consumer-grade propane across the US, and residential consumption is far higher in the winter than the summer because 65 percent of residential propane consumption is for space heating \citep{EIA2020b}. Thus, our findings for propane are likely to be driven by the residential sector. While propane is also an important fuel in the industrial sector, especially for petrochemicals and agriculture, industrial use of propane is generally more consistent throughout the year \citep{EIA2020b}. That said, agricultural demand for propane does peak in the winter as farmers heat livestock housing and greenhouses in cold weather, so the findings will also partly capture this effect.
+
+\begin{figure}
+	\centering
+	
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{Propane (Consumer Grade)}
+		\label{fig:propane}
+		\includegraphics[width=\linewidth]{PropanenewFE.pdf}
+	\end{subfigure} \hspace{0em}%
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{No. 2 Distillate}
+		\label{fig:distillate}
+		\includegraphics[width=\linewidth]{DistillatenewFE.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{Motor Gasoline}
+		\label{fig:motorgas}
+		\includegraphics[width=\linewidth]{MotorgasnewFE.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{Kerosene-Type Jet Fuel}
+		\label{fig:kerosene}
+		\includegraphics[width=\linewidth]{KerosenenewFE.pdf}
+	\end{subfigure}
+	\caption{Estimated Relationship Between Monthly Consumption of Petroleum Products and Average Daily Temperature. \\ {\small Notes: Each figure plots the coefficients on the temperature bins obtained from the estimation of equation (\ref{eq:base}), where the dependent variable is log sales (gallons) of a petroleum product in state $s$ and month $m$ and year $t$. Effects are relative to a day with an average temperature of 55-65\degree F. The shaded areas indicate 95 percent confidence intervals. Standard errors are clustered at the state level. The sample sizes range between about 19,000-21,000 observations. The R-squared (defined as 1 minus the ratio of residual sum of squares to total sum of squares) ranges between 0.98 and 0.99.}} 
+	\label{fig:petroleumproducts}
+\end{figure}
+
+Figure \ref{fig:petroleumproducts} also provides evidence that no. 2 distillate use slightly increases in cold temperatures. The coefficients associated with the lowest four temperature bins are all positive and significant at the 1 percent level. This likely reflects that while no. 2 distillate is used as a diesel fuel (e.g. in trucking), it can also be used as a fuel oil in small and moderate capacity burners for heating. For kerosene-type jet fuel, there is no clear pattern to the relationship and nearly all the coefficients are insignificant. This suggests that aircraft use is generally not affected by temperature. Finally, for motor gasoline, there is evidence of a U-shaped relationship but only at the very extremes of the distribution: the coefficients are positive and significant for very cold and very hot temperatures. Since motor gasoline is almost entirely used by the transportation sector, these findings demonstrate that extreme temperatures have measurable impacts on the operation of transportation systems.
+
+The motor gasoline results may capture both adjustments in the behaviour of individuals with respect to vehicle use, as well as effects on the fuel economy of vehicles. To investigate these mechanisms further, we provide auxiliary evidence on the effect of temperature on traffic volumes. Here we collect monthly state-level data on vehicle miles travelled (VMT) on all public roads from the US Federal Highway Administration during 2004-2019. We then estimate the same regression specification but now with the log of VMT as the dependent variable. The findings reveal an inverted U-shape, with \textit{less} VMT during extreme hot and cold weather, and with a larger decline during cold weather, although the magnitude of the effect is fairly small (see Figure A.3 in appendix section A.5). Therefore, our finding of greater motor gasoline use at extreme temperatures cannot be explained by greater vehicle use at these temperatures. It is however well known that there are substantial reductions in the fuel economy of vehicles during cold weather, especially for short trips \citep{USDOEb}, while air conditioning in vehicles increases fuel use in hot weather. Thus, our motor gasoline findings suggest that the reductions in fuel economy at extreme temperatures more than offset the fuel savings from reduced vehicle use, leading to a net increase in fuel consumption at extreme temperatures. 
+
+Finally, we explore the robustness of the baseline results for each fuel and sector to various checks. These include using alternative sources of temperature data to calculate the daily temperature bins, allowing temperature to have a lagged effect on fuel use, checks that our results are not driven by influential observations, and including more control variables, fewer fixed effects and a more recent sample period (year 2000 onwards). We also consider the effect of daily maximum (rather than daily average) temperatures and allowing for both spatially and temporally correlated standard errors. These robustness checks are provided in full in the appendix (see section A.5), where for compactness we only report the point estimates corresponding to the two lowest temperature bins and the two highest temperature bins (although all eight temperature bin variables are included in all models). We find the results are generally very robust. The main exceptions are when we exclude the state-by-year fixed effects, which can attenuate the estimated impacts of high temperatures (or lead to less precise estimates). Thus, this specification may give biased estimates due to omitted variables that are correlated with the temperature bin variables.
+
+\subsection{Adaptation Findings \label{resultsb}}
+
+The estimated effects of temperature on energy demand may be heterogeneous across locations and over time. Firms and households may adapt in various ways, whether technological (e.g. air conditioning adoption, the thermal efficiency of building design), behavioural (e.g. human comfort levels at certain temperatures and the associated preferences for temperature moderation, habit formation), or driven by other factors (e.g. biology, demography). These adaptive characteristics may modify the energy consumption effects of the temperature shocks we observe during the sample period.
+
+We investigate whether there is evidence of adaptation by estimating regression (\ref{eq:hetero}), which allows for both state and time heterogeneity in slope coefficients on temperature, precipitation and relative humidity. As before, our focus is on the response to temperature. We note that for states with cold (hot) climates, there are in some cases no observations in the extreme hot (cold) daily temperature bins. The coefficients on the extreme temperature bins specific to these states cannot be identified and so are omitted. In addition, if there are a very small number of observations in an extreme temperature bin(s) for a particular state over the sample period, such that the coefficient cannot be identified precisely when estimating equation (\ref{eq:hetero}), we omit these coefficients from the analysis in this section.\footnote{ We also tried an alternative approach that assumes the coefficient is the same as for the neighbouring temperature bin in that state. In practice, this is achieved by aggregating the extreme hot or cold temperature bin variables for the state to give sufficient observations (i.e., more than 1 day per year on average) in the state's highest or lowest temperature bin. We use this latter approach when generating the predictions in section \ref{simulation}, to ensure that all temperature observations are included in the analysis. Both approaches give very similar results since few observations are affected.} 
+
+	\begin{figure}
+	\centering
+	
+	\begin{subfigure}{0.325\textwidth}
+		\centering
+		\caption{Residential -- \\ Overall Heterogeneity}
+		\label{fig:res_hetero_overall}
+		\includegraphics[width=\linewidth]{Res_Elec_OverallHetero.pdf}
+	\end{subfigure} \hspace{0em}%
+	\begin{subfigure}{0.325\textwidth}
+		\centering
+		\caption{Residential -- \\ State Heterogeneity Only}
+		\label{fig:res_hetero_state}
+		\includegraphics[width=\linewidth]{Res_Elec_StateHetero.pdf}
+	\end{subfigure} \hspace{0em}%
+	\begin{subfigure}{0.325\textwidth}
+		\centering
+		\caption{Residential -- \\ Time Heterogeneity Only}
+		\label{fig:res_hetero_time}
+		\includegraphics[width=\linewidth]{Res_Elec_TimeHetero.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.325\textwidth}
+	\centering
+	\caption{Commercial -- \\ Overall Heterogeneity}
+	\label{fig:com_hetero_overall}
+	\includegraphics[width=\linewidth]{Com_Elec_OverallHetero.pdf}
+	\end{subfigure} \hspace{0em}%
+	\begin{subfigure}{0.325\textwidth}
+	\centering
+	\caption{Commercial -- \\ State Heterogeneity Only}
+	\label{fig:com_hetero_state}
+	\includegraphics[width=\linewidth]{Com_Elec_StateHetero.pdf}
+	\end{subfigure} \hspace{0em}%
+		\begin{subfigure}{0.325\textwidth}
+	\centering
+	\caption{Commercial -- \\ Time Heterogeneity Only}
+	\label{fig:com_hetero_time}
+	\includegraphics[width=\linewidth]{Com_Elec_TimeHetero.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.325\textwidth}
+	\centering
+	\caption{Industrial -- \\ Overall Heterogeneity}
+	\label{fig:ind_hetero_overall}
+	\includegraphics[width=\linewidth]{Ind_Elec_OverallHetero.pdf}
+	\end{subfigure} \hspace{0em}%
+	\begin{subfigure}{0.325\textwidth}
+	\centering
+	\caption{Industrial -- \\ State Heterogeneity Only}
+	\label{fig:ind_hetero_state}
+	\includegraphics[width=\linewidth]{Ind_Elec_StateHetero.pdf}
+	\end{subfigure} \hspace{0em}%
+	\begin{subfigure}{0.325\textwidth}
+	\centering
+	\caption{Industrial -- \\ Time Heterogeneity Only}
+	\label{fig:ind_hetero_time}
+	\includegraphics[width=\linewidth]{Ind_Elec_TimeHetero.pdf}
+	\end{subfigure}
+	\caption{Estimated Relationship Between Monthly Electricity Consumption and Average Daily Temperature for the Residential, Commercial and Industrial Sectors. \\ {\small Notes: Each figure plots the distribution of coefficients on the temperature bins obtained from the estimation of equation (\ref{eq:hetero}), where the dependent variable is log electricity consumption (MWh) in state $s$ and month $m$ and year $t$. Effects are relative to a day with an average temperature of 55-65\degree F. The black line plots the median temperature bin coefficients. The dark (light) grey areas represent the 25th to 75th (10th to 90th) percentiles.}}
+	\label{fig:electricity_hetero}
+\end{figure}
+
+The results from this exercise for electricity consumption are reported in Figure \ref{fig:electricity_hetero}. For each sector, we have a distribution of estimated state-year ($\beta_{st}$) coefficients for each temperature bin. We summarise these distributions by plotting a solid black line for the median coefficients, and the dark (light) grey areas represent the 25th to 75th (10th to 90th) percentiles. The first column of subfigures shows the overall heterogeneity for each sector, i.e. the distribution for all estimated $\beta_{st}$ coefficients for each bin. The second column of subfigures shows the distribution of the $\beta_{st}$ coefficients averaged over time for each state, to isolate the cross-state heterogeneity. Hence, the heterogeneity in these subfigures reflects differences in adaptation across states on average during our sample period. An example of this adaptation is that a much higher percentage of households use central air conditioning equipment in Florida (88 percent) than in New York (29 percent),\footnote{ These percentages are averages over time calculated using US EIA Residential Energy Consumption Survey (RECS) data for two years: 1997 and 2020.} where central air conditioners are more efficient than room air conditioners \citep{USDOEa}. The third column of subfigures averages the $\beta_{st}$ coefficients across states for each year to isolate the time heterogeneity. Hence, this heterogeneity in the slope coefficients reflects adaptation over time at the national level. An example of such adaptation is the national increases in air conditioning use: according to US EIA Residential Energy Consumption Survey (RECS) data, 68 percent of all US households used air conditioning in 1990, 77 percent used air conditioning in 2001, and 88 percent used air conditioning in 2020. 
+
+Figure \ref{fig:electricity_hetero} reveals substantial heterogeneity in the slope coefficients. For the overall heterogeneity in the residential sector (subfigure (a)), the median coefficients are fairly close to those found for our baseline model that ignores slope heterogeneity. However, the median coefficients now imply a larger response to extreme hot temperatures than for extreme cold temperatures (the median coefficients are 1.4 for the $<$ 15\degree F bin and 2.2 for the $>$ 85\degree F bin). Furthermore, there is a wide spread around the median, especially for the extreme temperature bins: the 90/10 percentile range for the $<$ 15\degree F ($>$ 85\degree F) bin is 2.6 to 0.4 (3.1 to 0.8). We also find that the state heterogeneity for the residential sector (subfigure (b)) is much greater than the time heterogeneity (subfigure (c)). Thus, most adaptation has taken place across space rather than over time, despite our sample covering a 30 year time horizon. Indeed, we find the (national level) adaptation that takes place over time during the sample period has not led to statistically significant changes in the temperature sensitivity of electricity consumption. This finding suggests, for example, that although more households in the US use air conditioning over time (which we would expect to increase electricity use in response to hot temperatures), other changes over time have reduced electricity use in response to hot temperatures, e.g. air conditioning units have become more energy efficient, %\footnote{ New air conditioning units installed in 2015 use about 50 percent of the energy used by air conditioning units installed in 1990 (\cite{USDOEd}).}
+and households have installed smart thermostats that save energy.
+%may reflect that important adaptation measures such as air conditioning adoption were already undertaken on a large scale by the beginning of our sample period, such that there are fewer opportunities for meaningful adaptation during the sample period.\footnote{ We also tried plotting the changes over time for the extreme temperature bins but did not find evidence they follow a positive or negative trend. These plots are available on request.} 
+
+For the commercial and industrial sectors, there is also notable heterogeneity in the estimated coefficients, particularly for the hottest and coldest temperature bins. For the commercial sector we again find that this mostly reflects adaptation across states rather than over time. However, the heterogeneity is not as extensive as for the residential sector, which is perhaps unsurprising given there is a generally smaller electricity demand response for the commercial and industrial sectors.
+
+Next, we investigate the mechanisms that may explain the heterogeneous responses. Because we find that spatial heterogeneity is more important than temporal heterogeneity, and because we are particularly interested in how states adapt to their long-run climate that does not change over time, we use each state's estimated coefficients (from regression (\ref{eq:hetero})) averaged over time for each temperature bin (as shown in the second column of subfigures in Figure \ref{fig:electricity_hetero}). That is, we aim to explain the cross-sectional variation in the coefficients driven by $\lambda_{ks}$ in equation (\ref{eq:hetero2}) rather than the overall heterogeneity.\footnote{ Recall for these second stage results we use the approach of dropping coefficients that cannot be precisely identified for a particular state, rather than aggregating temperature bins (as mentioned in a footnote above), which avoids complications from interpreting results using within-bin variation where bins for some states have been aggregated and others have not.} 
+
+Similar to \cite{Rode2021}, we consider how long-run exposure to warm (cold) climate modifies the effect of hot (cold) daily temperatures on energy demand. We measure exposure to warm climate using the long-run average state temperature (over 1901-2000) during the summer months (June, July and August), i.e., summer climate. Exposure to cold climate is defined similarly over the winter months (December, January and February), i.e., winter climate.\footnote{ We obtain these winter climate and summer climate variables from \cite{NOAAa}. We also tried using long-run average heating and cooling degree days, and found they are highly correlated with our winter and summer climate variables, respectively, and give very similar findings.} We start by visually inspecting scatter plots of the (averaged) coefficients for each state over the distribution of long-run climates. Figure \ref{fig:electricity_res_climate} presents these plots for the three coldest and three hottest temperature bins for the electricity demand responses in each sector. In these figures we also draw the best fitting quadratic curve for each bin. For the residential sector, we find evidence of an inverted U-shaped relationship for the hot temperature bins (subfigure (b)), with electricity demand in states with very hot and very cool summer climates less responsive (in percentage terms) to hot temperature days than states in the middle of the summer climate distribution. In contrast, for the cold temperature bins (subfigure (a)), there is a positive relationship: the warmer the winter climate, the greater the percentage increase in residential electricity consumption during cold temperature days. These patterns observed in the residential sector for the coldest and hottest bins are also apparent in the commercial sector (subfigures (c) and (d)).\footnote{ For the commercial and industrial sectors, there are a few outlying coefficients (e.g. less than -1). Our conclusions are unaffected by dropping these outliers.}
+
+	\begin{figure}
+	\centering
+	
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+  	
+		\caption{Residential -- \\ 3 Coldest Bins}
+		\label{fig:residential_low}
+		\includegraphics[width=\linewidth]{climate_res_elec_low2.pdf}
+	\end{subfigure} \hspace{0em}%
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\caption{Residential -- \\ 3 Hottest Bins}
+		\label{fig:residential_high}
+		\includegraphics[width=\linewidth]{climate_res_elec_high2.pdf}
+	\end{subfigure}
+
+ \begin{subfigure}{0.45\textwidth}
+		\centering
+  	
+		\caption{Commercial -- \\ 3 Coldest Bins}
+		\label{fig:commercial_low}
+		\includegraphics[width=\linewidth]{climate_com_elec_low2.pdf}
+	\end{subfigure} \hspace{0em}%
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\caption{Commercial -- \\ 3 Hottest Bins}
+		\label{fig:commercial_high}
+		\includegraphics[width=\linewidth]{climate_com_elec_high2.pdf}
+	\end{subfigure}
+
+ \begin{subfigure}{0.45\textwidth}
+		\centering
+  	
+		\caption{Industrial -- \\ 3 Coldest Bins}
+		\label{fig:industrial_low}
+		\includegraphics[width=\linewidth]{climate_ind_elec_low2.pdf}
+	\end{subfigure} \hspace{0em}%
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\caption{Industrial -- \\ 3 Hottest Bins}
+		\label{fig:industrial_high}
+		\includegraphics[width=\linewidth]{climate_ind_elec_high2.pdf}
+	\end{subfigure}
+
+	\caption{Plots of Estimated Coefficients for Electricity Consumption on Long-Run State Climate for the Residential, Commercial and Industrial Sectors. \\ {\small Notes: Figures plot the coefficients on the temperature bins obtained from estimating equation (\ref{eq:hetero}), averaged over time for each state. Coefficients are effects relative to a day with an average temperature of 55-65\degree F. Long-run summer (winter) climate is the average temperature over 1901-2000 in summer (winter) months for each state. Quadratic curves of best fit are drawn for coefficients for each bin.  
+ }}
+	\label{fig:electricity_res_climate}
+\end{figure} 
+
+Before we explain these findings, we check they are robust to a regression model that controls for (long-run average) per capita income and population density (a proxy for urbanisation). To mitigate concerns about small sample size for the extreme temperature bins, especially for the hottest temperature bin for which we can only estimate 22 coefficients (for 22 warm to hot states), we do not run bin-specific regressions. Instead, we pool the coefficients for all temperature bins together and estimate a single regression that includes interaction terms to allow for different correlations with state characteristics for the coefficients on the hot and cold temperature bins. Hence, this specification takes the following form:  
+\begin{equation}
+\bar{\beta}_{js} = \tau_{1} WinterClimate_{s} \times LowTempBin_{j} + \tau_{2} SummerClimate_{s} \times HighTempBin_{j} + \textbf{X}_{sj} \sigma + \alpha_{j} + \epsilon_{js} \label{eq:heterorobust}%
+\end{equation} 
+where $\bar{\beta}_{js}$ are the estimated heterogeneous coefficients from regression (\ref{eq:hetero}) above (averaged over time) for temperature bin $j$ and state $s$. $WinterClimate_{s}$ and $SummerClimate_{s}$ are the long-run average winter and summer climates in state $s$, respectively, as defined above. $LowTempBin_{j}$ is a dummy equal to 1 for temperature bins below 55\degree F (and 0 otherwise) and $HighTempBin_{j}$ is a dummy equal to 1 for temperature bins above 65\degree F (and 0 otherwise). $\tau_{1}$ is the slope coefficient on $WinterClimate_{s}$ for temperature bins below 55\degree F, and $\tau_{2}$ is the slope coefficient on $SummerClimate_{s}$ for temperature bins above 65\degree F. Thus, similar to \cite{Rode2021}, this specification allows us to model adaptation to long-run climate separately for the two sides of the electricity-temperature response (below 55\degree F and above 65\degree F) through our measures of exposure to long-run cold climates ($WinterClimate_{s}$) and long-run hot climates ($SummerClimate_{s}$).\footnote{Rather than pooling all temperature bins together and including interaction terms with high and low temperature bin dummies, we could alternatively split the sample and estimate two separate regressions for the temperature bin coefficients above 65\degree F and below 55\degree F. Using this approach, the coefficients on the explanatory variables are identical and the standard errors are nearly the same, and so our conclusions are unchanged.} The vector $\textbf{X}$ includes controls for income per capita and population density (also interacted with the high and low temperature bin dummies). $\alpha_{j}$ are bin-specific fixed effects to control for differences in the level of the electricity demand response (on average across all states) for each bin. We do not include state fixed effects as these will remove the cross-state variation in the coefficients that we are trying to explain. Finally, $\epsilon_{js}$ is an error term. We estimate (\ref{eq:heterorobust}) using Ordinary Least Squares with heteroskedasticity robust standard errors.\footnote{ The errors will not have a constant variance because the dependent variables are coefficients estimated with differing amounts of precision. We do not use Generalised Least Squares because the form of the variance in the second stage regression error terms is not fully known.} 
+
+The results from the estimation of regression (\ref{eq:heterorobust}) for electricity demand are provided in Table \ref{table:secondstage_robust}. The evidence here should only be interpreted as associational because the explanatory variables are not randomly assigned. Columns (1), (3) and (5) report results for the residential, commercial and industrial sector, respectively, that assume a linear relationship between the long-run climate variables and the estimated coefficients. In columns (2), (4) and (6) we estimate the same model for each sector but now allowing for a quadratic relationship between the long-run climate variables and the estimated coefficients. For the industrial sector we find that the correlation between the long-run winter climate and the coefficients is insignificant for the low temperature bins (columns (5) and (6)), and for the high temperature bins long-run summer climate is also insignificant when we allow for a quadratic relationship (column (6)).\footnote{However, for the industrial sector, there is a positive and significant correlation between population density and the cold temperature bin elasticities. We return to this result below.} In contrast, we find a clear pattern emerges for both the residential and commercial sectors which is consistent with the evidence in Figure \ref{fig:electricity_res_climate}: the long-run winter climate is positively correlated with the coefficients for the cold temperature bins (columns (1) and (3)), and we find evidence of an inverted U-shaped relationship between long-run summer climate and the coefficients for the hot temperature bins (columns (2) and (4)). For the latter finding, the turning points are very similar for the residential and commercial sector, equal to 70\degree F and 71\degree F respectively. There are 24 states in the sample that are to the right of these turning points i.e., that have long-run average summer climates above 71\degree F.  
+  
+%In contrast to long-run temperature, there is no clear pattern to the effects of income and population density, and these variables are usually statistically insignificant. Hence, there is little evidence that income or population density modify the effects of temperature shocks on electricity demand. 
+
+%Many of these correlations are statistically significant. Hence, states with warm climates tend to display a larger (smaller) energy demand response to cold (hot) temperature events than states with cold climates. These results are robust to using estimating separate regressions for each bin (see appendix section \ref{appendix_d}).
+
+%For the residential sector, we find a statistically significant and negative (positive) correlation between the long-run average temperature variable and the temperature bin coefficients on the hot (cold) temperature bins. Thus, we again find that households in states with hotter climates tend to use less (more) energy to deal with hot (cold) temperature events than households in cooler climates. For the commercial sector there is again evidence that long-run temperature is positively correlated with the coefficients on the low temperature bins. For the residential and commercial sectors, the conclusions we draw from the bin-specific regressions shown in Table \ref{table:secondstage} about the relationship between state climate and the heterogeneous coefficients are therefore robust to the pooled model. 
+
+\begin{table}[ptb]
+	
+	\centering
+	\caption{Electricity Demand Heterogeneous Coefficients Regressed on State Characteristics}%
+	\label{table:secondstage_robust}%
+	
+	\resizebox{\textwidth}{!}{%
+		\begin{threeparttable}
+			\begin{tabular}
+				[c]{lcccccccc}%
+				\toprule 
+				&\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+				&  Residential	& Residential &	Commercial & Commercial & Industrial & Industrial \\
+				\midrule 
+					
+				$WinterClimate_{s} \times LowTempBin_{j}$   & 0.033\sym{***}   & 0.037\sym{**}   & 0.014\sym{***} & 0.005 & 0.001& 0.007  \\
+				& (0.004) & (0.015) & (0.003)   & (0.010) &(0.004)& (0.021)\\
+
+ $WinterClimate_{s}^2 \times LowTempBin_{j}$  &   & -0.000 &  & 0.000 &&  -0.000 \\
+				&  & (0.000) & & (0.000)&& (0.000) \\     
+    
+    $SummerClimate_{s} \times HighTempBin_{j}$  &  -0.024\sym{***}  & 1.247\sym{***}  &  -0.002 & 0.423\sym{***} &-0.014\sym{**} & 0.121 \\
+				& (0.008) & (0.154) & (0.005)  & (0.123)  &(0.006) & (0.120) \\
+       $SummerClimate_{s}^2 \times HighTempBin_{j}$  &   & -0.009\sym{***} &  & -0.003\sym{***} &&  -0.001 \\
+				&  & (0.001) & & (0.001)&& (0.001) \\            
+			$Income_{s}  \times LowTempBin_{j}$   & 0.012 &  0.012 & 0.005
+& 0.004 & 0.002 & 0.002 \\
+				& (0.011) & (0.012)  & (0.009) & (0.010) & (0.008)& (0.008)  \\
+    $Income_{s} \times HighTempBin_{j}$  & 0.025\sym{*} & 0.009 & 0.003 & -0.003 &0.016\sym{*}& 0.015 \\
+				& (0.014) & (0.011) & (0.008) & (0.008) &(0.009)& (0.009)\\
+				
+				
+				$PopulationDensity_{s} \times LowTempBin_{j}$   & -0.034\sym{***} & -0.035\sym{***} & 0.002  & 0.004  &0.022\sym{**}& 0.020\sym{*} \\
+    & (0.012) & (0.012) & (0.007) & (0.008) &(0.009)& (0.010)\\
+    $PopulationDensity_{s} \times HighTempBin_{j}$  & 0.026 & 0.003 & 0.019\sym{*} & 0.011 & 0.020& 0.017\\
+				& (0.017) & (0.015) & (0.010) &  (0.009)  & (0.014)& (0.014)\\
+    \midrule
+				Observations & 332 & 332 & 332  & 332& 332 & 332\\
+                R-squared & 0.632 & 0.679 & 0.505 & 0.521 & 0.181 & 0.185 \\
+                Bin Fixed Effects & Yes & Yes & Yes & Yes & Yes & Yes  \\
+						
+				\bottomrule		
+			\end{tabular} 
+			
+			\begin{tablenotes}
+				\small
+				\item Notes: Table reports results from the estimation of regression (\ref{eq:heterorobust}) where the dependent variable is the coefficient for temperature bin $j$ and state $s$ from the estimation of regression (\ref{eq:hetero}). $WinterClimate_{s}$ and $SummerClimate_{s}$ are the long-run average temperatures observed over 1901-2000 during winter and summer months, respectively. $HighTempBin_{j}$ is a dummy for the temperature bins above 65\degree F, and $LowTempBin_{j}$ is a dummy for temperature bins below 55\degree F. $Income_{s}$ is income per capita (thousands \$), and $PopulationDensity_{s}$ is population density (hundreds per square mile). Heteroskedasticity robust standard errors are given in parentheses.
+				\sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)\\
+				
+				
+			\end{tablenotes}
+		\end{threeparttable}
+		
+	}
+	
+\end{table}    
+
+We now discuss the finding of an inverted U-shaped between the estimated coefficients and the long-run summer climate for the hot temperature bins, focusing on the residential sector. Several previous studies in the energy demand literature that also analyse adaptation (e.g., \cite{Davis5962}, \cite{Rode2021} and \cite{auffhammer2022climate}) find evidence that hot days are associated with \textit{larger} increases in electricity consumption in warmer climates, which is consistent with the greater adoption and use of air conditioning in warmer locations. We therefore further explore the mechanisms driving our results using auxiliary state-level evidence from the EIA's 2020 Residential Energy Consumption Survey (RECS). The results are presented in full in appendix section A.6. We find that while there is greater use of air conditioning in states in the middle of the summer climate distribution relative to the coolest states, usage is already close to saturation for the middle climate states. Thus, there is little variation in air conditioning adoption across the middle to hot summer climate states. We also find suggestive evidence that the smaller demand response for the hottest states (versus middle climate states) is due to various other factors including the efficiency of air conditioning systems, building characteristics and thermostat preferences. More generally, these factors reflect that regions with the hottest climates are better adapted to hot temperature events and so do not need to engage as much in self-protection efforts in the form of electricity use for cooling, or are more efficient at doing so. This finding echos the recent evidence in the literature on the mortality effects of temperature (e.g. \cite{heutel2021adaptation}), that demonstrates regions are relatively bad at dealing with temperatures they experience less frequently. 
+
+Next, we explore whether there are heterogeneous temperature effects for natural gas and petroleum products. These results are given in the appendix (see section A.6). Figures A.5, A.7 and A.8 depict the slope heterogeneity. We again find a wide range of estimated temperature coefficients, where the heterogeneity tends to be more substantial across states than over time.\footnote{ When studying the time heterogeneity in the residential sector, we find that cold temperature days lead to bigger percentage increases in natural gas use during more recent years, particularly during the 2010s. We show this by plotting the time heterogeneity for the cold temperature bins in Figure A.6 in the appendix (section A.6). This finding may in part reflect the shale gas revolution reducing natural gas prices across the country, such that households can afford to keep their gas heating on for longer during cold weather.} In addition, Tables A.13 and A.14 consider how the cross-state heterogeneity is associated with state characteristics using regression model (\ref{eq:heterorobust}) above.\footnote{For these results we focus on linear functions of winter and summer climate for the low and high temperature bins, since scatter plots do not suggest a nonlinear relationship. For the petroleum products, the results are slightly sensitive to a few outlying coefficients, and so we drop these coefficients from the sample.} For natural gas in the residential and commercial sectors, there is a similar association between long-run winter climate and the estimated coefficients for cold temperature bins to that found for electricity use. Specifically, warmer (colder) climate states tend to display a larger (smaller) gas consumption response to cold temperature days (see Table A.13). Unlike the residential and commercial sectors, for warmer winter climates the slope of the response function shifts down for the cold temperature bins in the industrial sector. For natural gas we also find a positive correlation between the coefficients for cold temperature bins and population density in the industrial sector. We find a similar result above for the electricity demand coefficients in the industrial sector. Hence, industries that display a proportionally bigger increase in their energy use during cold weather tend to be concentrated in densely populated states e.g., in the Northeast.
+
+Finally, for petroleum products the relationship between long-run climate and the estimated coefficients is insignificant for propane and distillate (see Table A.14). There is however some evidence of climate-driven adaptation for the transportation fuels (motor gasoline and jet fuel). In addition, we find that population density is statistically significant for both propane and distillate fuel (see Table A.14). Our results for propane show that lower population density is correlated with increased temperature elasticities for cold bins. This finding likely reflects that propane is used for heating primarily in less densely populated rural areas that lack natural gas distribution networks. In contrast, distillate fuel oil is used for home and commercial heating, primarily in the densely populated Northeast region of the United States \citep{EIA2023}. Hence, our finding that higher population density is significantly associated with enhanced temperature elasticities during cold weather likely reflects this regional concentration of distillate fuel consumption for heating in the Northeast.
+
+\section{Predicted Impacts of Climate Change \label{simulation}}
+
+We now predict the within-sample effects of climate change-driven changes in temperature patterns. We present predictions for each fuel and sector using the estimated relationships from regression (\ref{eq:base}) without adaptation (homogeneous slopes) and regression (\ref{eq:hetero}) with adaptation (heterogeneous slopes). Specifically, we investigate the implications for energy consumption, expenditure, and carbon dioxide emissions of deviations in observed daily temperature patterns during the sample period from long-run average daily temperature patterns. We focus on estimating these impacts over the decade 2010-2019, which include many of the warmest years on record in the US (as well as globally). The long-run average daily temperature distribution is calculated by averaging each temperature bin for a given state and month over 1951-1980. The 1951-1980 period is chosen because it is standard in the climate change literature, largely because the U.S. National Weather Service uses a three-decade period to define `normal' or average temperature and NASA's Goddard Institute for Space Studies (GISS) temperature analysis effort began around 1980 (e.g. see \cite{NASA2020}). 
+
+\subsection{Prediction Methodology}
+
+To generate our predictions we use the following methodology. First, for each (state, month, year) observation over 2010-2019, we use the estimated coefficients on the temperature variables to predict the change in (log) consumption of the energy product under consideration (electricity, natural gas or a petroleum product) due to the deviation between the observed daily temperature bins in each state-month-year (denoted $Temp_{smt}^{j,obs}$) and the long-run average daily temperature bins in the corresponding state-month (denoted $Temp_{sm}^{j,av}$). For the baseline (homogeneous slopes) predictions, this involves using the $\hat\beta_{j}$ coefficients obtained from the estimation of regression (\ref{eq:base}), which are displayed in Figures \ref{fig:electricity}, \ref{fig:naturalgas} and \ref{fig:petroleumproducts}, to calculate:
+\begin{equation}
+\widehat{lnC_{smt}^{obs}-lnC_{smt}^{av}} = \sum_{j=1}^{8} \hat{\beta_{j}} Temp_{smt}^{j,obs} - \sum_{j=1}^{8} \hat{\beta_{j}} Temp_{sm}^{j,av} = \sum_{j=1}^{8} \hat{\beta_{j}}\Delta Temp_{smt} \label{eq:predict1}%
+\end{equation} 
+where the control variables and fixed effects for the predicted values of $lnC_{smt}^{obs}$ and $lnC_{smt}^{av}$ are the same and so drop out when calculating the difference.\footnote{ We compare two predicted values because the difference is determined only by the deviation in the temperature data. If instead we compared the observed log energy consumption to the predicted log energy consumption using the long-run average (1951-1980) temperature data and the estimated coefficients from regression (\ref{eq:base}) or (\ref{eq:hetero}), the difference would also include the regression residual.}  %\begin{equation}
+%\widehat{ln\Delta C}_{smt} = \widehat{lnC_{smt}^{obs}-lnC_{smt}^{av}} = %\sum_{j=1}^{8} \hat{\beta_{j}} (Temp_{smt}^{j,obs} - Temp_{sm}^{j,av})  %\label{eq:predict1}%
+%\end{equation} 
+For the adaptation (heterogeneous slopes) predictions, we replace the $\hat{\beta_{j}}$ in equation (\ref{eq:predict1}) with the coefficients $\hat\beta_{j,st}$ obtained from the estimation of regression (\ref{eq:hetero}), which are displayed in Figure \ref{fig:electricity_hetero}, and Figures A.5, A.7 and A.8 in the appendix.
+
+Second, we take the exponential of the predicted logged change in equation (\ref{eq:predict1}) to give:
+\begin{equation}
+exp(\widehat{lnC_{smt}^{obs}-lnC_{smt}^{av}}) = \widehat{C_{smt}^{obs} / C_{smt}^{av}}   \label{eq:predict2}%
+\end{equation}
+From equation (\ref{eq:predict2}) we obtain estimates of the percentage change in the energy product due to deviations between the observed daily temperature distribution and the long-run average daily temperature distribution. Third, we calculate the predicted change in the level of fuel consumption implied by the ratio in equation (\ref{eq:predict2}) as follows:
+\begin{equation}
+\Delta consumption_{smt} = C_{smt} - (C_{smt}/ ( \widehat{C_{smt}^{obs} / C_{smt}^{av}} )  \label{eq:predict3}%
+\end{equation}
+where recall that $C_{smt}$ is the observed value of energy consumption.
+
+Fourth, we multiply the impacts on fuel consumption given by equation (\ref{eq:predict3}) by appropriate emission factors to give the implied impacts on carbon dioxide emissions. For natural gas and petroleum products, we use fuel-specific carbon dioxide emission coefficients provided by the EIA. For electricity consumption, however, we cannot precisely calculate the associated emissions for our state-level analysis. This is because electricity can be supplied by power plants from anywhere within the North American Electric Reliability Corporation (NERC) interconnection, and the interconnection boundaries cross state boundaries. Instead, we assume that all temperature-driven shocks to electricity demand are met by natural gas-fired generation, and calculate emissions from electricity consumption using state-by-year emission factors for natural gas generation. The justification for this assumption is that, given our set of fixed effects, our estimated coefficients identify the effect of temperature shocks on electricity consumption about the long-run average electricity consumption in a given state-month, while also controlling for annual adjustments in the level of electricity consumption in a given state. Renewable technologies such as solar and wind power seem in general unlikely to meet electricity demand driven by these shocks because they are non-dispatchable, while coal and nuclear generation are typically used to meet base load demand rather than transitory shocks about the average. The hypothetical dispatch curves calculated by the EIA support this point (see Figure A.9 in appendix section A.7), with intermediate and peak load needs largely met by natural gas. However, more polluting petroleum-fired peaking generators are dispatched when demand for electricity is highest in the US, and we ignore transmission and distribution losses, so we interpret the emissions we calculate using this approach as providing a lower-bound impact.\footnote{ In the appendix section A.7 we use our predicted impacts to consider the plausibility of this assumption and also present an alternative calculation that we argue gives an upper-bound impact.}  
+
+In addition to the adjustments in fuel consumption and associated carbon dioxide emissions, we calculate average annual impacts on energy expenditures. This involves multiplying the predicted consumption impact given by equation (\ref{eq:predict3}) by the observed price (in real 2010 dollars). For petroleum products, we do not usually observe state-specific prices, so we convert consumption impacts into expenditure impacts using the average price in the Petroleum Administration for Defense Districts (PADD) the state is located in, or if the PADD price is not available, we use national prices. As energy prices vary over the decade, the net impacts on energy expenditures may not necessarily correspond directly with the net impacts on energy consumption.
+ 
+Finally, we aggregate the impacts over all observations as follows. For the percentage change in energy consumption, we calculate the population-weighted average across all state-month-year values. For the change in the level of energy consumption, energy expenditure and carbon dioxide emissions, we sum the impacts over all state-month-year values and then divide by 10 to give an average annual impact over 2010-2019. Average annual impacts over a decade allow us to assess the effects of longer-run changes in climate rather than individual weather events. We follow this procedure for both the baseline model and adaptation model. Standard errors associated with the predicted impacts are calculated using the procedure detailed in appendix section A.8. 
+
+\subsection{Prediction Results}
+
+Table \ref{table:energysimulation} reports the predicted impacts for each fuel and sector. In panel A we report predictions from our baseline model (\ref{eq:base}) that assumes homogeneous coefficients. In panel B we report predictions from our adaptation model (\ref{eq:hetero}) that allows for heterogeneous coefficients by state and by year. Table A.15 (in appendix section A.7) gives the 95 percent prediction intervals associated with these impacts. 
+
+We consider first the results in panel A. For all sectors, we find there are positive net annual impacts on electricity demand over 2010-2019 due to deviations between observed temperature distributions and the long-run average distribution. Thus, increases in electricity demand for cooling due to warming temperatures more than offset decreases in demand for heating. In contrast, since natural gas is used for heating but not cooling, there are decreases in natural gas consumption for all sectors due to warmer temperatures. For both electricity and natural gas consumption, we find the largest impacts take place in the residential sector, while the impacts are smallest in the industrial sector. The average annual consumption of electricity over 2010-2019 increases by about 14.1 million MWh in the residential sector (or 0.9 percent), with the 95\% prediction interval ranging from 12.3 to 16.0 million MWh. For the commercial and industrial sectors, average annual electricity consumption increases by about 7.6 million MWh (0.5 percent) and about 1.8 million MWh (0.2 percent), respectively. The corresponding 95\% prediction intervals range from 6.7 to 8.4 million MWh for the commercial sector and 1.4 to 2.2 million MWh for the industrial sector. Meanwhile, average annual consumption of natural gas decreases by about 84 billion cubic feet in the residential sector (-1.9 percent), 46 billion cubic feet in the commercial sector (-1.3 percent), and 23 billion cubic feet in the industrial sector (-0.3 percent). The corresponding 95\% prediction intervals are -91 to -77 billion cubic feet for the residential sector, -50 to -41 billion cubic feet for the commercial sector, and -33 to -13 billion cubic feet for the industrial sector. For petroleum products, we find net decreases in propane and distillate, while motor gasoline increases. The largest impact is on propane consumption, which decreases by about 143 million gallons (-1.4 percent) annually. The 95\% prediction interval ranges from -174 to -112 million gallons. There is very little change in jet fuel consumption.
+
+\afterpage{
+\begin{landscape}
+	\begin{table}[ptb]
+		\centering
+		\caption{Predicted Annual Impacts During 2010-2019 due to Deviations Between Observed Temperature and Long-Run Average Temperature}%
+		\label{table:energysimulation}%
+		\resizebox{1.4\textwidth}{!}{%
+			\begin{threeparttable}
+				\begin{tabular}
+					[c]{lcccccccccccc}%
+					\toprule 
+				
+					&\multicolumn{3}{c}{Electricity }& &\multicolumn{3}{c}{Natural Gas}& &\multicolumn{4}{c}{Petroleum Products} \\
+					\cline{2-4}	 \cline{6-8}  \cline{10-13} \\
+					&\multicolumn{1}{c}{Residential} &\multicolumn{1}{c}{Commercial} &\multicolumn{1}{c}{Industrial} & &\multicolumn{1}{c}{Residential}
+					&\multicolumn{1}{c}{Commercial} &\multicolumn{1}{c}{Industrial} & &\multicolumn{1}{c}{Propane} 
+					&\multicolumn{1}{c}{No. 2 Distillate}	&\multicolumn{1}{c}{Motor Gasoline}  &\multicolumn{1}{c}{Jet Fuel} \\
+					
+					\midrule
+					\\
+				\multicolumn{3}{c}{\textit{Panel A: Baseline (Homogeneous Slopes) Model }} & & &&&& \\
+					\\
+				Energy Consumption (Percent) & 0.85 & 0.53 & 0.22 &  & -1.94 & -1.30 & -0.32
+				
+				 & & -1.37
+				  & -0.04
+				    & 0.08
+				     & 0.03 \\	
+				& (0.07) & (0.03) & (0.02)  &  & (0.07) & (0.06) & (0.06)  & & (0.13)
+				  & (0.06) & (0.02) & (0.07) \\	
+				Energy Consumption (Unit$^{+}$) & 14,148,657
+				 & 7,559,587  & 1,847,443
+				  &   & -84,160 & -45,529 & -22,999
+				  
+				   & & -142,840,016
+				    & -41,228,584
+				     & 101,124,656
+				      & 1,485,704
+				       \\	
+				& (944,952) & (436,997) & (203,679) &  & (3,485) & (2,223) & (5,022)  & & (15,943,092)  & (38,203,952)  &  (23,905,110) & (17,780,754) \\	
+				Energy Expenditure (Millions \$) & 1,577
+				 & 749
+				  & 124
+				  & & -948 & -339 & -97
+				   & & -76
+				    & -63
+				     & 197
+				      & -2
+				       \\	
+				& (109) & (43) & (13) &  & (38) & (17)  & (21) & & (14)   & (81) & (46) & (35) \\
+    Metric Tons CO2 & 6,527,974*
+				 & 3,476,687*
+				  & 870,770*
+				   &  & -4,630,932
+				    & -2,505,251 & -1,265,553
+				    
+				     & & -817,016
+				      & -420,024
+				       & 859,592
+				        & 14,219
+				         \\	
+				& (438,855) & (202,401) & (96,635) &  & (191,790) & (122,345) & (276,358)  & & (91,191)  & (389,210)  & (203,201) & (170,176) 	
+					\\
+     \\
+				\midrule
+			\\
+			\multicolumn{3}{c}{\textit{Panel B: Adaptation (Heterogeneous Slopes) Model }} & & &&&& \\
+			\\
+			Energy Consumption (Percent) & 0.46 & 0.39 & 0.07 &  & -2.47
+			
+			 & -1.49
+			 
+			 
+			  & -0.28
+			  & & -1.72
+			   & -0.33 & 0.16
+			    & 0.01
+			     \\	
+			& (0.07)
+			 & (0.08) & (0.07) & & (0.09) & (0.13) & (0.11) & & (0.20)  & (0.11) &  (0.03) & (0.10)\\		
+			Energy Consumption (Unit$^{+}$) & 7,913,766
+			
+			 & 5,807,597
+			 
+			  & 375,579
+			  
+			   &  & -114,770
+			   
+			   
+			    & -51,117
+			    
+			    
+			     & -26,460
+			     
+			     
+			      & & -138,813,616
+			      
+			       & -209,938,592
+			       
+			        & 204,307,888
+			        
+			         & -20,024,466
+			          \\	
+			& (993,963) & (1,016,614) & (622,694) &  & (5,823) & (4,158)  & (8,535) & & (30,495,988)  & (61,592,052) &  (43,936,892) & (23,395,140) \\			
+			Energy Expenditure (Millions \$) & 915
+			
+			 & 572
+			  & 46
+			   &  & -1,268
+			   
+			   
+			    & -384
+			    
+			    
+			     & -102
+			     & & -58
+			      & -495
+			       & 433
+			         & -63
+			         
+			          \\	
+			& (114) & (101) & (41) &  & (54) & (31)  & (39) & & (26)  & (138)  & (84) & (50) \\	
+   Metric Tons CO2 & 3,700,564*
+			 & 2,668,985*
+			  & 223,036*
+			   &  & -6,315,275
+			   
+			    & -2,812,723
+			    
+			    
+			    
+			     & -1,455,963
+			     
+			     
+			      & & -793,986
+			      
+			        & -2,138,788
+			        
+			         & 1,736,683
+			         
+			          & -191,650
+			           \\	
+			& (466,538)  & (476,245) & (294,396) &  & (320,408) & (228,820) & (469,622)  & & (174,431)  & (627,480) &  (373,478) & (223,910) \\
+			\\
+					\bottomrule 
+							\end{tabular} 
+				\begin{tablenotes}
+		\small
+		\item Notes: Table reports the average annual impacts during 2010-2019 of the deviation between the observed temperature distribution and the long-run average temperature distribution (calculated over 1951-1980 for each state-month). Energy consumption in percent is a weighted average across all predicted values during 2010-2019 where the weights are state population. Energy consumption in units, CO2 emissions and energy expenditure are total yearly impacts on average over 2010-2019. Standard errors for predicted impacts are given in parentheses. US dollars reported in the table are real 2010 dollars. \\
+		$^{+}$ units are MWh for electricity, MMcf for natural gas and gallons for petroluem products. * indicates lower-bound impact.
+				\end{tablenotes}
+			\end{threeparttable}					
+			
+		}
+	\end{table}	
+	
+\end{landscape}
+}
+
+Turning to the simulated impacts on energy expenditures for the baseline model, we find the residential sector spends about 1.6 billion dollars more on electricity, and about 950 million dollars less on natural gas. (See Table A.15 in the appendix for the prediction intervals associated with these point estimates.) Thus, changes in temperature (from the long-run average) lead to a net increase in energy (electricity plus natural gas) expenditure in the residential sector of about 600 million dollars. Likewise, there are net increases in energy expenditure in the commercial sector of about 400 million dollars, and relatively small net increases in the industrial sector. For petroleum products, the biggest change in energy expenditure is for motor gasoline, which increases by nearly 200 million dollars.\footnote{ There is a small reduction in energy expenditure for jet fuel, despite small increases in consumption. This is possible due to changing prices over time and fluctuating net impacts: in some years there are small decreases in consumption and in these years jet fuel prices tend to be higher.} Converting the consumption impacts in panel A into carbon dioxide emissions, we find %a small net decrease in emissions associated with all petroleum products equal to about 0.4 million metric tons. This is because lower emissions due to decreased consumption of propane and distillate fuels are largely offset by higher emissions from the transportation fuels (particularly motor gasoline). There is a much larger decrease in emissions of 8.4 million metric tons associated with lower natural gas use (across all sectors). Nonetheless, our lower-bound estimate of the increased emissions from electricity generation is 10.9 million metric tons, meaning 
+that annual carbon dioxide emissions across all fuels increase by at least 2.1 million metric tons. This is a small percentage of total annual US energy-related carbon dioxide emissions, which equals 5,305 million metric tons on average over 2010-2019 according to EIA estimates. We might alternatively compare with the emissions from a typical passenger vehicle, which according to US EPA estimates are 4.6 metric tons of carbon dioxide per year \citep{EPA2020}. Therefore, a simple back-of-the-envelope calculation suggests that our simulated impact on emissions of at least 2.1 million metric tons is equivalent to the emissions of at least 460,000 passenger vehicles.
+
+In summary, the baseline model suggests there are positive impacts on electricity consumption and negative impacts on natural gas consumption. The impacts in the residential sector are about twice as large as those in the commercial sector, while the impacts on the industrial sector are minimal. There are positive net impacts on energy (electricity plus natural gas) expenditure in all sectors, and a positive impact on overall carbon dioxide emissions, driven mostly by increased use of electricity but also motor gasoline.
+
+We now consider the prediction results from regression (\ref{eq:hetero}) that allows for adaptation specific to each state and year. It is ambiguous \textit{a priori} how allowing for adaptation will alter the projected aggregate impacts relative to the baseline model predictions, for various reasons. First, there is substantial heterogeneity across states in their estimated temperature coefficients relative to the baseline coefficients. To the extent that hot states are adapted to hot climates, and cold states adapted to cold climates, when there are rising temperatures hot states will tend to gain with adaptation relative to without, but cold states may lose out. (We return to this point below.) However, there is much variation in the heterogeneous coefficients besides that explained by adaptation to long-run climate, as shown in section \ref{resultsb} above. Second, how the heterogeneity in the dose-response functions with adaptation affects the aggregate impacts depends on differences in the level of energy consumption across states. For example, some states exhibit a much bigger percentage increase in natural gas use for cold days with adaptation than under the baseline model, and others exhibit a much smaller response (see Figure A.5 in appendix section A.6). If the states with the bigger response tend to be larger (smaller) states that use more (less) natural gas, then as the temperature warms, there will be bigger (smaller) reductions in natural gas use at the aggregate level with adaptation. 
+
+Third, there is heterogeneity across states in the adjustments taking place to their temperature distributions over time, which can itself modify the effects of the heterogeneity in adaptation across states. For example, although temperatures have in general increased over 2010-2019 relative to the long-run average temperature, some individual states (particularly cold states such as Washington, Oregon, Idaho and Montana) have in fact experienced an increased number of cold days relative to their long-run average (and so unlike other states will exhibit greater use of heating fuels). Finally, the medians (and means) of the estimated temperature bin coefficients with adaptation over the prediction time period (2010-2019) can be different to the coefficients obtained using the baseline model, which can result in systematically higher or lower impacts across all states with adaptation than without. 
+
+The results in panel B of Table \ref{table:energysimulation} show that adaptation has substantially reduced the predicted impacts on electricity use relative to the no adaptation (homogeneous coefficient) baseline model for each sector. (Again, Table A.15 in the appendix provides 95\% prediction intervals for these impacts.) We find average annual consumption of electricity over 2010-2019 now only increases by 7.9 million MWh in the residential sector (0.5 percent), 5.8 million MWh in the commercial sector (0.4 percent), and 0.4 million MWh (0.1 percent) in the industrial sector. The 95\% prediction intervals range from 6.0 to 9.9 million MWh in the residential sector, 3.8 to 7.8 million MWh in the commercial sector, and -0.8 to 1.6 million MWh in the industrial sector. For natural gas demand, there are greater savings (bigger negative impacts) due to the warming temperatures with adaptation than without in all sectors. For petroleum products, the results are mixed, with adaptation slightly decreasing (in absolute terms) the negative impacts of the temperature deviations on propane consumption relative to the baseline model, but there are now much bigger decreases in distillate use, and bigger increases in motor gasoline use. Furthermore, with adaptation there are now predicted decreases in jet fuel consumption, although the impacts remain relatively small compared to the other petroleum products. In summary, we find that allowing for adaptation results in very different predicted aggregate impacts of climate change on fuel consumption than found without adaptation.\footnote{ For natural gas in the industrial sector, there is a smaller percentage decline for the adaptation model versus the baseline model, but a bigger decline in consumption for the adaptation versus baseline model. This is because there is substantial heterogeneity in the percentage decline across states, and for the adaptation model there is a positive correlation between the percentage decline and the level of industrial natural gas consumption. Thus, bigger percentage declines take place in states that use more natural gas. Conversely, there is a bigger percentage decline in propane with adaptation but a smaller decline in propane consumption with adaptation for the opposite reason.} 
+
+Regarding the energy expenditure impacts, we find that with adaptation, annual expenditure on electricity and natural gas combined in the residential sector falls by about 350 million dollars due to warming temperatures. Thus, there are now net savings in the residential sector, unlike in the baseline model. Since we found above that without adaptation, warming increases annual spending by about 600 million dollars, this suggests that adaptation has saved nearly 1 billion dollars annually in the residential sector. There are also small net savings in energy (electricity plus natural gas) expenditure in the industrial sector of nearly 60 million dollars, rather than a small increase. In the commercial sector, there remains an increase in net energy expenditures but it has reduced to about 200 million dollars with adaptation (in comparison to about 400 million dollars without adaptation). Our predictions suggest that total energy expenditure across all fuels and sectors increases by 1.1 billion dollars annually without adaptation, but decreases by 0.4 billion dollars annually with adaptation. Thus, for the U.S. overall, adaptation has already saved about 1.5 billion dollars annually from the effects of warming temperatures. 
+
+In terms of how the consumption impacts translate into carbon dioxide emissions, %a much bigger net decrease in annual emissions from petroleum products (relative to the no-adaptation baseline predictions), equal to 1.4 million metric tons. There are also bigger decreases in emissions associated with reduced natural gas use of 10.6 million metric tons (across all sectors), and our lower-bound estimate of the increased emissions from electricity generation (across all sectors) is now only 6.6 million metric tons. So 
+in contrast to the aggregate increase in emissions of at least 2.1 million metric tons without adaptation, we now find aggregate annual emissions fall by at most 5.4 million metric tons with adaptation. The same back-of-the-envelope calculation as performed above suggests this reduction is equivalent to taking up to 1.2 million passenger vehicles off the road.\footnote{In the appendix section A.7 we calculate an upper-bound impact for carbon dioxide emissions emissions from electricity generation and we continue to find that aggregate emissions fall with adaptation.}
+
+In summary, when analysing the aggregate impacts of climate change that have already taken place in the US, we find much more favourable impacts with adaptation than without, with smaller increases in electricity use, and bigger savings in natural gas consumption. Adaptation has also helped reduce substantially the feedback effect of climate change on carbon dioxide emissions, turning it from positive to negative. 
+
+The predictions we have analysed so far involve aggregating impacts across all US states. However, there is likely to be substantial heterogeneity in how adaptation modifies the impacts across states, as mentioned above. To illustrate this point, we break down the impacts on electricity demand into climate terciles: the coolest third, middle third, and warmest third of states. These climate tercile-specific predictions are given in Table A.18 in appendix section A.7 for the residential and commercial sectors.\footnote{ A list of states in each climate tercile is given in Table A.2 in section A.4 in the appendix. We focus on the residential and commercial sectors' electricity impacts by climate tercile because we find a statistically significant association between the slope heterogeneity and the long-run climate in these cases.} For the residential sector, we find the baseline model (without adaptation) suggests there are positive impacts on electricity consumption in all three climate terciles, but the impacts are much bigger in the warmest third of states than the coolest third. Comparing the results from the adaptation model versus the baseline model, we find that adaptation has actually increased the predicted electricity consumption impacts in the residential sector for the coolest third of states. In contrast, electricity consumption decreases with adaptation in the middle third of states, and the decrease with adaptation is even bigger for the warmest third of states. We also find a very similar pattern for the predicted impacts by climate tercile in the commercial sector.%We first consider columns (1) and (2), which give results for the residential sector without and with adaptation, respectively. In column (1) we find the aggregate impacts of deviations in the daily temperature distribution during 2010-2019 relative to the long-run average daily temperature distribution are positive in all three climate terciles, but much bigger in the warmest third of states than the coolest third. For example, the net consumption impacts (in MWhs) for the residential sector are about 40 times bigger in the warmest third of states than the coolest third. Comparing column (1) with column (2), we find that adaptation has actually increased the predicted electricity consumption impacts in the residential sector for the coolest third of states, from about 0.2 million MWh to 0.8 million MWh. Electricity expenditures therefore increase from 48 million dollars to 121 million dollars. In contrast, electricity consumption decreases with adaptation in the middle third of states, from 4.1 million MWh to 3.0 million MWh. The decrease with adaptation is even bigger for the warmest third of states, from 9.8 million MWh to 4.1 million MWh. 
+
+Since electricity consumption is used for both heating and cooling, these findings reflect two effects of adaptation. First, for cooling demand, the warmest third of states use less electricity to regulate the effects of warmer temperatures and more hot days with adaptation versus without. In contrast, the coolest third of states on average show a similar electricity demand response to hot days with and without adaptation. Second, for heating demand, because the warmest third of states use more electricity to regulate the effects of cold days with adaptation than without, they save more in terms of reduced heating needs from warmer temperatures and fewer cold days. The opposite holds for the coolest third of states, and so they save less with adaptation versus without. %Finally, columns (3) and (4) of Table \ref{table:energysimulation2} give the corresponding results for the commercial sector. Here we again find much bigger savings in electricity consumption and expenditure with adaptation (versus without) in the middle and warmest third of states. For the coolest third of states, the impacts are very similar in the baseline and adaptation models. 
+In summary, there is substantial heterogeneity in the impacts across climate terciles, with households and businesses in the warmest states gaining the most from adaptation. The coolest states, however, use more electricity to regulate the effects of warming climates with adaptation than they do without adaptation.\footnote{ In Table A.19 in appendix section A.7, we also consider the impacts broken down by climate tercile for natural gas consumption. Here we find similar results: there are bigger savings with adaptation versus without for the middle and warmest third of states than the coolest third.}
+
+\section{Conclusion \label{conclusion}}
+
+In this paper, we investigate the effect of daily temperature on monthly energy consumption. %We estimate panel models of state-level fuel consumption for the entire contiguous United States over a 30 year period (or more) by fuel for all major fuels and sectors. We use random fluctuations in temperature and a rich set of fixed effects to isolate the temperature response of fuel consumption from confounding factors, and therefore develop credible estimates of the energy demand consequences of the changing distribution of temperature observations over time. We estimate a baseline specification that assumes no adaptation (i.e., homogeneous slopes), and an alternative specification that flexibly models adaptation by allowing for spatial and temporal variation in the sensitivity of energy consumption to temperature (i.e., heterogeneous slopes). 
+Our baseline results reveal that temperature is a strongly significant determinant of electricity and natural gas consumption in the residential and commercial sectors, but it is less important for the industrial sector. We also find evidence that use of petroleum products can be affected by temperature, especially propane. However, for each fuel and sector, the baseline results mask very substantial heterogeneity in the estimated relationships, especially across states. For electricity use in the residential and commercial sectors, we find evidence of historical adaptation by long-run climate, but there is less evidence of adaptation by per capita income. We find an inverted U-shaped relationship between the estimated slope coefficients on hot temperature bins and states' long-run summer climate. We find suggestive evidence that smaller elasticities for the hottest summer climate states relative to middle climate states likely reflect differences in the efficiency of cooling technologies, building characteristics and thermostat preferences across states.
+
+We use our econometric results to provide a near-complete assessment of the average annual impact that climate change has already had on energy consumption and expenditure for the US economy during 2010-2019. We do this by predicting the effect of deviations between the observed distribution of daily temperatures and the historical average distribution (over 1951-1980). We find strikingly different predicted impacts with adaptation versus without. In particular, across all sectors, adaptation has substantially reduced the net annual increases in electricity demand due to climate change, and also resulted in much bigger savings in natural gas consumption. Consequently, the feedback effect of climate change on overall annual carbon dioxide emissions from energy use is positive without adaptation, but negative with adaptation. We also predict that warming temperatures have decreased overall annual expenditure on energy in the residential sector by about 350 million dollars with adaptation, which represents a saving of about 1 billion dollars annually relative to the impacts without adaptation. However, we find substantial heterogeneity in the effects of adaptation by climate tercile, with hot states benefiting from adaptation, but cold states made worse off by higher electricity expenditures.
+
+Our predicted annual impacts are informative for policy makers regarding the likely feedback effects that climate change can introduce and how these effects can be moderated by adaptation. Our findings underscore that policies that promote and facilitate adaptation to a warming climate can bring about immediate benefits, both in terms of reduced energy expenditure and carbon dioxide emissions. Our analysis also suggests that cold and middle climate states may learn lessons from warmer states about adaptation measures that can improve their energy efficiency and so reduce the need for energy to self-protect from rising temperatures. Although our predicted annual effects are relatively small in percentage terms, it should be emphasised these are impacts that have already taken place. With continuing warming and the greater frequency of high temperature episodes, the magnitudes will likely increase in the future. While our within-sample predictions may not help us to accurately quantify future impacts, they are suggestive of the direction of future net impacts if the changing climate continues to follow a similar trend over time. And also given that we find the energy use--temperature relationships do not generally shift much over time during our 30 year sample period, which suggests our regression estimates may be generalisable to years in the near future.
+
+Future research might further investigate the adaptation decisions that give rise to the heterogeneous slopes identified in this study. Even more spatially disaggregated data, ideally at the micro-level, would be most suitable for this line of inquiry, although such data are not generally available for large geographic areas, especially for sectors other than the residential sector. Future research may also identify how the adaptation that has taken place within our sample period has affected mortality rates, allowing for impact assessments that include comparable estimates of the value of statistical lives saved.  
+
+\bibliography{weather_energy}
+\bibliographystyle{jaere}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<article article-type="research-article" dtd-version="1.2">
+  <front>
+    <title-group>
+      <article-title>The effect of temperature on energy demand and the role of adaptation\thanks{Acknowledgements: We thank three anonymous referees and the editor for constructive comments and suggestions that improved the article. We also thank numerous seminar participants. Any errors are our own. Thomas di Paola and Krishna Brijmohun provided excellent research assistance. Financial support from the University of Manchester is gratefully acknowledged.</article-title>
+    </title-group>
+    <contrib-group>
+      <contrib contrib-type="author">
+        <string-name>Edward Manderson\thanks{University of Manchester, address1, email1</string-name>
+      </contrib>
+    </contrib-group>
+    <abstract>We examine the effect of daily temperature on monthly energy demand for all major fuels (electricity, natural gas and petroleum products) and end-use sectors in the United States using over 3 decades of state-level data. We estimate fixed effects panel models that assume homogeneous temperature coefficients, and panel models that account for adaptation by allowing for both spatial and temporal variation in the temperature sensitivity of fuel demand. For each fuel and sector, we find there is substantial heterogeneity across states in the estimated relationships. Using our estimates to predict the effects that climate change has already had during 2010-2019, we find that adaptation has led to aggregate annual savings in energy consumption and expenditure for each sector, with the residential sector saving nearly 1 billion dollars annually with adaptation versus without. However, we also find notable heterogeneity across regions in how the predicted impacts are modified by adaptation. %We also find that due to adaptation there is a negative rather than positive feedback effect of warming temperatures on carbon dioxide emissions.</abstract>
+  </front>
+  <body>
+    <sec>
+      <title>Introduction</title>
+    </sec>
+    <sec>
+      <title>Empirical Methodology \label{baseline</title>
+    </sec>
+    <sec>
+      <title>Data \label{data</title>
+    </sec>
+    <sec>
+      <title>Results \label{results</title>
+    </sec>
+    <sec>
+      <title>Predicted Impacts of Climate Change \label{simulation</title>
+    </sec>
+    <sec>
+      <title>Conclusion \label{conclusion</title>
+    </sec>
+  </body>
+</article>
